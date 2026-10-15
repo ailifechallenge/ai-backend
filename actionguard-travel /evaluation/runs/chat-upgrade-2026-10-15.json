@@ -1,0 +1,64 @@
+{
+  "calls": 8,
+  "cases": [
+    {
+      "synthetic": true,
+      "country": "US",
+      "text": "High Wind Warning. Gusts 60 to 70 mph. Remain indoors and away from windows. Avoid unnecessary travel.",
+      "question": "호텔에 있는데 차로 나가도 될까?",
+      "response": {
+        "answer": "강풍 주의보·경계·경보 또는 강풍 가능성이 있는 동안에는 운전을 가능하면 미루는 것이 좋습니다. 불가피하게 운전해야 할 때는 속도를 줄이고 양손으로 운전대를 잡으며 큰 차량과 거리를 두어야 합니다.",
+        "sources": [
+          {
+            "title": "강풍 시 추가 행동요령 · 일반 안내",
+            "quote": "운전은 가능하면 미루세요. 불가피하면 속도를 줄이고 양손으로 운전대를 잡으며, 트럭·버스·트레일러와 거리를 두세요.",
+            "url": "https://www.weather.gov/safety/wind-during"
+          },
+          {
+            "title": "강풍 시 추가 행동요령 · 일반 안내",
+            "quote": "적용 조건: NWS 강풍 주의보·경계·경보 또는 강풍 가능성이 있는 동안.",
+            "url": "https://www.weather.gov/safety/wind-during"
+          }
+        ],
+        "checked_at": "2026-10-15T04:51:31.748164+00:00",
+        "mode": "evidence"
+      }
+    },
+    {
+      "synthetic": true,
+      "country": "US",
+      "text": "High Wind Warning. Gusts 60 to 70 mph. Remain indoors and away from windows. Avoid unnecessary travel.",
+      "question": "그럼 창문 근처에 있어도 돼?",
+      "response": {
+        "answer": "강풍 경보가 발효 중인 동안에는 창문과 외벽에서 떨어져 튼튼한 건물 안쪽 방이나 지하실에 머물러야 합니다. 창문 근처는 날아오는 파편이나 강풍으로 위험할 수 있으므로 피하는 것이 안전합니다.",
+        "sources": [
+          {
+            "title": "강풍 시 추가 행동요령 · 일반 안내",
+            "quote": "강풍 경보가 발효 중이면 튼튼한 건물 안쪽 방이나 지하실로 이동하고, 창문과 외벽에서 떨어져 머무르세요.",
+            "url": "https://www.weather.gov/safety/wind-during"
+          }
+        ],
+        "checked_at": "2026-10-15T04:51:37.876994+00:00",
+        "mode": "evidence"
+      }
+    },
+    {
+      "synthetic": true,
+      "country": "JP",
+      "text": "地震情報。震度4。この地震による津波の心配はありません。",
+      "question": "쓰나미 때문에 대피해야 하나요?",
+      "response": {
+        "answer": "제공된 정보에 따르면 이번 지진으로 인한 쓰나미 우려는 없습니다. 다만 공식 발령 여부는 확인되지 않았으므로 현지 상황에 주의하세요.",
+        "sources": [
+          {
+            "title": "사용자 입력 · 공식 발령 미확인",
+            "quote": "この地震による津波の心配はありません。",
+            "url": null
+          }
+        ],
+        "checked_at": "2026-10-15T04:51:40.920811+00:00",
+        "mode": "evidence"
+      }
+    }
+  ]
+}

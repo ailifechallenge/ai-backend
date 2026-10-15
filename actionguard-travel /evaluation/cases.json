@@ -1,0 +1,440 @@
+[
+  {
+    "id": "us-public-wind",
+    "country": "US",
+    "origin": "official_bulletin_excerpt",
+    "text": "Wind Advisory: Entire local Tri-State from 6AM to 10PM EST Thursday. Wind Gusts: Gusts up to around 50 mph expected.",
+    "gold": {
+      "issued": null,
+      "start": "Thursday 06:00 EST; date not in excerpt",
+      "end": "Thursday 22:00 EST",
+      "area": "Entire local Tri-State (not a precise radius)",
+      "units": "50 mph ≈ 80 km/h",
+      "prohibited_inferences": [
+        "Do not invent calendar date/year or exact user location",
+        "Do not equate advisory with evacuation order"
+      ]
+    },
+    "tags": [
+      "time_roles",
+      "timezone",
+      "area",
+      "wind_units"
+    ],
+    "source_url": "https://www.weather.gov/media/okx/12042024_pm.pdf",
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": {
+      "summary": "목요일 오전 6시부터 오후 10시 EST까지 최대 시속 150km의 돌풍이 예상됩니다.",
+      "kind": "number_unit"
+    }
+  },
+  {
+    "id": "jp-public-earthquake",
+    "country": "JP",
+    "origin": "public_safety_email_excerpt",
+    "text": "■発表日時：2024年8月9日20時01分\n■発生日時：2024年8月9日19時57分\nこの地震による津波の心配はありません。\n■震源地：神奈川県西部",
+    "gold": {
+      "issued": "2024-08-09 20:01",
+      "onset": "2024-08-09 19:57",
+      "end": null,
+      "area": "神奈川県西部 is epicenter, not recipient position",
+      "hazards": {
+        "earthquake": "mentioned",
+        "tsunami": "negated"
+      },
+      "prohibited_inferences": [
+        "No tsunami evacuation from this text",
+        "No assumption alert is live now",
+        "No invented timezone when not explicit"
+      ]
+    },
+    "tags": [
+      "date",
+      "issued_vs_onset",
+      "negation",
+      "compound_hazard",
+      "area"
+    ],
+    "source_url": "https://www.city.chiyoda.lg.jp/bousaimail/20240809200256_1.html",
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": {
+      "summary": "쓰나미가 예상되므로 즉시 높은 곳으로 대피하세요.",
+      "kind": "negation"
+    }
+  },
+  {
+    "id": "jp-iso-wave",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "波浪注意報。対象地域: いすみ市。発表時刻: 2026-10-14T16:20:00+09:00。状況: 継続。開始時刻と終了時刻は記載なし。",
+    "gold": {
+      "issued": "2026-10-14 16:20 UTC+09:00",
+      "start": null,
+      "end": null,
+      "area": "いすみ市",
+      "prohibited_inferences": [
+        "Publication is not onset",
+        "No raw ISO timestamp in summary",
+        "Continued in source does not prove currently active"
+      ]
+    },
+    "tags": [
+      "iso_display",
+      "time_roles",
+      "unknown_end"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-date-heat",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Heat Advisory for Example County. Issued October 14, 2026 at 9 AM PDT. Effective October 15 at 10 AM PDT until October 16 at 8 PM PDT. Temperature up to 95°F. Do not leave children in parked cars.",
+    "gold": {
+      "issued": "October 14, 2026 09:00 PDT",
+      "start": "October 15 10:00 PDT",
+      "end": "October 16 20:00 PDT",
+      "area": "Example County (fictional)",
+      "units": "95°F =35°C; 14 is date, not temperature",
+      "prohibition": "Do not leave children in parked cars"
+    },
+    "tags": [
+      "date",
+      "time_roles",
+      "temperature_units",
+      "prohibition"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-flood-prohibition",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Flash Flood Warning. Do not drive through flooded roads.",
+    "gold": {
+      "guidance_include": [
+        "홍수"
+      ],
+      "prohibition": "Flooded-road travel forbidden"
+    },
+    "tags": [
+      "negation",
+      "action"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "jp-earthquake-no-tsunami",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "地震が発生しました。津波の心配はありません。",
+    "gold": {
+      "guidance_include": [
+        "지진"
+      ],
+      "guidance_exclude": [
+        "쓰나미"
+      ]
+    },
+    "tags": [
+      "compound_hazard",
+      "negation"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-cancel-wind-flood",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "High Wind Warning cancelled. Flash Flood Warning remains in effect.",
+    "gold": {
+      "guidance_include": [
+        "홍수"
+      ],
+      "guidance_exclude": [
+        "강풍"
+      ]
+    },
+    "tags": [
+      "compound_hazard",
+      "cancellation"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "jp-drill",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "訓練。津波警報。高台へ避難してください。",
+    "gold": {
+      "guidance_exclude": [
+        "쓰나미"
+      ],
+      "state": "test"
+    },
+    "tags": [
+      "drill"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-relative-midnight",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Wind Advisory until midnight tonight.",
+    "gold": {
+      "end": "midnight tonight; exact date/timezone unknown",
+      "prohibited_inferences": [
+        "Do not invent calendar date/timezone"
+      ]
+    },
+    "tags": [
+      "ambiguous_midnight"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "jp-si-units",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "最高気温35℃。最大瞬間風速20m/s。",
+    "gold": {
+      "units": "35°C unchanged; 20m/s unchanged or72km/h equivalent",
+      "prohibited_inferences": [
+        "No Fahrenheit inference"
+      ]
+    },
+    "tags": [
+      "temperature_units",
+      "wind_units"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-zone-change",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Issued 2026-11-01T01:30:00-07:00. Ends 2026-11-01T01:30:00-08:00.",
+    "gold": {
+      "issued": "UTC-07:00",
+      "end": "UTC-08:00 one hour later"
+    },
+    "tags": [
+      "dst",
+      "time_roles"
+    ],
+    "source_url": null,
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "jp-public-misdelivery",
+    "country": "JP",
+    "origin": "official_misdelivery_excerpt",
+    "text": "誤送信内容　緊急速報　【小松島市】避難指示　全域に警戒レベル４、避難指示が発令されました。（徳島県）",
+    "gold": {
+      "state": "reported misdelivery; not a fresh evacuation order",
+      "area": "小松島市"
+    },
+    "tags": [
+      "misdelivery",
+      "level",
+      "area"
+    ],
+    "source_url": "https://www.city.komatsushima.lg.jp/docs/4329853.html",
+    "privacy": "Public geographic names retained; personal contacts and page footer excluded. Synthetic cases contain no personal information.",
+    "mutation": null
+  },
+  {
+    "id": "us-midnight-range",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Issued October 14 at 11:30 PM PDT. High Wind Warning begins October 15 at 1 AM PDT and ends October 16 at midnight PDT. Gusts 60 to 70 mph in Example County.",
+    "gold": {
+      "issued": "October 14 23:30 PDT; year unknown",
+      "start": "October 15 01:00 PDT",
+      "end": "October 16 00:00 PDT",
+      "units": "60–70 mph ≈ 97–113 km/h",
+      "area": "Example County",
+      "prohibited_inferences": [
+        "Do not convert October 14 into temperature",
+        "Do not confuse issuance with start"
+      ]
+    },
+    "tags": [
+      "date",
+      "time_roles",
+      "wind_units"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "us-fahrenheit-negative",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "Cold Weather Advisory for Example County. Temperatures as low as -4 F expected. This is not an evacuation order.",
+    "gold": {
+      "units": "-4°F = -20°C",
+      "area": "Example County",
+      "prohibited_inferences": [
+        "Do not reverse negative sign",
+        "Do not invent evacuation order"
+      ]
+    },
+    "tags": [
+      "temperature",
+      "negation"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "us-cancel-one-hazard",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "High Wind Warning cancelled. Flash Flood Warning remains in effect for Example County until 6 PM EDT. Do not drive through flooded roads.",
+    "gold": {
+      "end": "18:00 EDT; date unknown",
+      "area": "Example County",
+      "guidance_include": [
+        "홍수"
+      ],
+      "guidance_exclude": [
+        "강풍"
+      ],
+      "prohibited_inferences": [
+        "Do not say all warnings are cancelled",
+        "Do not omit prohibition on driving through floodwater"
+      ]
+    },
+    "tags": [
+      "compound_hazard",
+      "cancellation",
+      "prohibition"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "us-conditional-evacuation",
+    "country": "US",
+    "origin": "synthetic_regression",
+    "text": "If local officials order evacuation, leave using designated routes. No evacuation order has been issued for Example County.",
+    "gold": {
+      "area": "Example County",
+      "prohibited_inferences": [
+        "Do not change conditional future evacuation to an immediate order",
+        "Do not claim the area is safe"
+      ]
+    },
+    "tags": [
+      "condition",
+      "negation"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "jp-issued-start-end",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "訓練ではありません。10月14日16時20分発表。避難所は10月14日18時に開設し、10月15日午前8時に閉鎖予定です。対象は架空地区です。",
+    "gold": {
+      "issued": "October 14 16:20; year/timezone unspecified",
+      "start": "shelter opening October 14 18:00",
+      "end": "planned shelter closure October 15 08:00, not hazard ending",
+      "area": "架空地区",
+      "prohibited_inferences": [
+        "Not a drill (negated drill phrase)",
+        "Do not equate shelter closure with end of hazard"
+      ]
+    },
+    "tags": [
+      "date",
+      "time_roles",
+      "negation"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "jp-tsunami-cancel-earthquake",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "津波注意報は解除されました。余震に注意してください。海岸には近づかないでください。",
+    "gold": {
+      "hazards": {
+        "tsunami": "cancelled"
+      },
+      "prohibited_inferences": [
+        "Do not say an active tsunami alert remains",
+        "Do not omit the coastal prohibition",
+        "Do not claim no further risk"
+      ]
+    },
+    "tags": [
+      "cancellation",
+      "compound_hazard",
+      "prohibition"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "jp-distance-not-speed",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "架空川から500メートル以内の地区が対象です。予想最大風速は20メートル毎秒です。",
+    "gold": {
+      "area": "within 500m of fictional river, not user location",
+      "units": "20 m/s = 72 km/h; 500m is distance",
+      "prohibited_inferences": [
+        "Do not treat 500m as wind speed",
+        "Do not infer user is inside the area"
+      ]
+    },
+    "tags": [
+      "area",
+      "wind_units"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  },
+  {
+    "id": "jp-future-drill",
+    "country": "JP",
+    "origin": "synthetic_regression",
+    "text": "明日午前10時に避難訓練を行います。これは訓練のお知らせです。災害は発生していません。",
+    "gold": {
+      "start": "tomorrow 10:00; actual date unknown without receipt date",
+      "prohibited_inferences": [
+        "Do not present as an active disaster",
+        "Do not invent calendar date"
+      ]
+    },
+    "tags": [
+      "drill",
+      "date",
+      "negation"
+    ],
+    "source_url": null,
+    "privacy": "Synthetic test text; fictional areas; no personal information. Gold is a first-pass draft, not independently approved."
+  }
+]

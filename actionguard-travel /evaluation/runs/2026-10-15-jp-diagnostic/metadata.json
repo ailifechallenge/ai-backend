@@ -1,0 +1,16 @@
+{
+  "started_at": "2026-10-14T15:18:36.048748+00:00",
+  "model": "gemini-3.5-flash-lite",
+  "dataset_sha256": "2b587cd12b0e650a9217c072b0165f5c21af3b10a319d2cae2c637a9511004d5",
+  "selected": [
+    "jp-public-earthquake"
+  ],
+  "repeats": 1,
+  "max_calls": 7,
+  "release_decision": "HOLD: independent review and coverage required",
+  "summary_error_rate": null,
+  "semantic_verification_miss_rate": null,
+  "completed": 1,
+  "calls": 7,
+  "finished_at": "2026-10-14T15:18:47.506467+00:00"
+}

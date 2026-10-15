@@ -1,0 +1,20 @@
+{
+  "started_at": "2026-10-14T15:19:13.796459+00:00",
+  "model": "gemini-3.5-flash-lite",
+  "dataset_sha256": "2b587cd12b0e650a9217c072b0165f5c21af3b10a319d2cae2c637a9511004d5",
+  "selected": [
+    "us-public-wind",
+    "jp-public-earthquake"
+  ],
+  "repeats": 1,
+  "max_calls": 8,
+  "release_decision": "HOLD: independent review and coverage required",
+  "summary_error_rate": null,
+  "semantic_verification_miss_rate": null,
+  "stopped": "HTTPException",
+  "http_status": 502,
+  "error_category": "Gemini 응답 구조가 올바르지 않아 분석을 중단했습니다.",
+  "completed": 0,
+  "calls": 2,
+  "finished_at": "2026-10-14T15:19:17.978053+00:00"
+}
