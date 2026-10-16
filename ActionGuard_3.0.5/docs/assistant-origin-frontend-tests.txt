@@ -1,0 +1,18 @@
+
+> actionguard-team-integrated@3.0.0 test
+> vitest run --reporter=dot
+
+
+ RUN  v5.0.4 /Users/moonjongjun/Desktop/ActionGuard-Team-Integrated/frontend
+
+························································································································
+
+ Test Files  22 passed (22)
+      Tests  120 passed (120)
+   Start at  20:48:43
+   Duration  3.08s (environment 44%, tests 29%, setup 13%, import 9%, transform 5%)
+
+Environment  jsdom was created 22 times · 9.39s total, 44% of tracked time
+             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)
+             learn more: https://vitest.dev/guide/improving-performance#test-environments
+

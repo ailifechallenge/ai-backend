@@ -1,0 +1,2 @@
+const labels:Record<string,string>={'Asia/Tokyo':'일본','America/New_York':'미국 동부','America/Detroit':'미국 동부','America/Chicago':'미국 중부','America/Denver':'미국 산악','America/Phoenix':'미국 애리조나','America/Los_Angeles':'미국 서부','America/Anchorage':'미국 알래스카','Pacific/Honolulu':'미국 하와이'}
+export function timezoneLabel(zone:string){try{const offset=new Intl.DateTimeFormat('ko-KR',{timeZone:zone,timeZoneName:'shortOffset'}).formatToParts(new Date()).find(x=>x.type==='timeZoneName')?.value;return `${labels[zone]??'현지 시간'} · ${offset??zone}`}catch{return '현지 시간대 확인 필요'}}

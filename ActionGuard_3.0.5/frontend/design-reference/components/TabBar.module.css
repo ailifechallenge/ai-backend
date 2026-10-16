@@ -1,0 +1,40 @@
+/* 화면 맨 아래 고정. 데스크톱에서는 430px 폰 프레임 폭에 맞춘다. */
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: var(--tabbar-total);
+  padding-bottom: var(--home-indicator);
+  background: #fff;
+  border-top: 1px solid var(--color-tabbar-border);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: var(--tabbar-height);
+  padding: 6px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-tab-inactive);
+  text-decoration: none;
+}
+
+.active {
+  color: var(--color-primary-strong);
+}
+
+.active span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}

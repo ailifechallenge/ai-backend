@@ -1,0 +1,29 @@
+.strong {
+  font-size: 15.5px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.sub {
+  margin-top: 4px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+.actions {
+  margin-top: var(--space-3);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-4);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--touch-min);
+  font-size: 14px;
+  font-weight: 700;
+}

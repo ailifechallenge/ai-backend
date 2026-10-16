@@ -1,0 +1,62 @@
+:root {
+  /* 색상 — "안전"을 암시하는 초록 계열은 쓰지 않는다 */
+  --color-primary: #0b72b9;
+  --color-primary-strong: #085a93;
+  --color-primary-soft: #e3f1fb;
+  --color-text: #0d2b45;
+  --color-text-sub: #496278;
+  --color-text-faint: #607589;
+  --color-bg-top: #f1f6fa;
+  --color-bg-bottom: #f5faff;
+  --color-header: #f1f6fa;
+  --color-card: #ffffff;
+  --color-border: #d6e8f6;
+  --color-border-strong: #b5d3ea;
+  --color-emergency-bg: #0a3a5f;
+  --color-emergency-text: #ffffff;
+  --color-caution-text: #b85f0a;
+  --color-caution-bg: #fff3e5;
+  --color-caution-border: #f2c48f;
+  --color-possible-bg: #fff6cc;
+  --color-possible-text: #7a5a00;
+  --color-possible-border: #e8cf63;
+  --color-neutral-bg: #eef2f6;
+  --color-neutral-text: #4d6378;
+  --color-muted-bg: #f4f6f8;
+  --color-muted-text: #7d8d9c;
+  --color-unknown-text: #4d6378;
+  --color-desktop-bg: #c9d2db;
+  --color-tabbar-border: #e3e8ee;
+  --color-tab-inactive: #6b7785;
+  --color-emergency-red: #c62828;
+  --color-water: #bfdff5;
+  --color-road: #ffffff;
+  --color-block: #e4eef6;
+
+  /* 형태 */
+  --radius-card: 18px;
+  --radius-pill: 999px;
+  --radius-header: 32px;
+  --radius-control: 14px;
+  --shadow-card: 0 1px 4px rgba(20, 40, 60, 0.03);
+  --shadow-sheet: 0 -8px 30px rgba(10, 58, 95, 0.18);
+
+  /* 크기 */
+  --app-max-width: 430px;
+  --touch-min: 44px;
+  /* 하단 고정 탭바: 64px + 홈 인디케이터 여백 (iPhone 34px, 인디케이터 없는 기기 0) */
+  --tabbar-height: 64px;
+  --home-indicator: env(safe-area-inset-bottom, 0px);
+  --tabbar-total: calc(var(--tabbar-height) + var(--home-indicator));
+  /* 상세 화면 하단 고정 버튼 영역 (버튼 44px + 위아래 여백) */
+  --bottom-cta-space: 96px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+
+  --font-sans: 'Noto Sans KR', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --font-mono: ui-monospace, Consolas, monospace;
+}

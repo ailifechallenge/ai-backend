@@ -1,0 +1,3366 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ActionGuard Travel 2.9",
+    "version": "2.9.0"
+  },
+  "paths": {
+    "/api/push/status": {
+      "get": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Status",
+        "operationId": "status_api_push_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/devices": {
+      "post": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_push_devices_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Registration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/devices/{device_id}/update": {
+      "post": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Update",
+        "operationId": "update_api_push_devices__device_id__update_post",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Update"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/devices/{device_id}/revoke": {
+      "post": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Revoke",
+        "operationId": "revoke_api_push_devices__device_id__revoke_post",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/devices/{device_id}/status": {
+      "get": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Device Status",
+        "operationId": "device_status_api_push_devices__device_id__status_get",
+        "parameters": [
+          {
+            "name": "device_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Device Id"
+            }
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Authorization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/regions": {
+      "get": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Regions",
+        "operationId": "regions_api_push_regions_get",
+        "parameters": [
+          {
+            "name": "country",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(US|JP)$",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:[A-Z]{2}|[0-9]{6})$",
+              "title": "Region"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/hazards": {
+      "get": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Hazards",
+        "operationId": "hazards_api_push_hazards_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/push/weather": {
+      "get": {
+        "tags": [
+          "push"
+        ],
+        "summary": "Current Weather",
+        "operationId": "current_weather_api_push_weather_get",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^(?:US:[A-Z]{2}:[A-Z]{2}[CZ][0-9]{3}|JP:[0-9]{6}:[0-9]{7})$",
+              "title": "Scope"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/alerts": {
+      "get": {
+        "summary": "Alerts",
+        "operationId": "alerts_api_alerts_get",
+        "parameters": [
+          {
+            "name": "area",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[A-Za-z]{2}$"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Area"
+            }
+          },
+          {
+            "name": "lat",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 90,
+                  "minimum": -90
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lat"
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "maximum": 180,
+                  "minimum": -180
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Lon"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alerts"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/areas": {
+      "get": {
+        "summary": "Japan Areas",
+        "operationId": "japan_areas_api_japan_areas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/alerts": {
+      "get": {
+        "summary": "Japan Alerts",
+        "operationId": "japan_alerts_api_japan_alerts_get",
+        "parameters": [
+          {
+            "name": "office",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^\\d{6}$",
+              "title": "Office"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Alerts"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/translate": {
+      "post": {
+        "summary": "Translation",
+        "operationId": "translation_api_translate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Translation"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/verify": {
+      "post": {
+        "summary": "Verification",
+        "operationId": "verification_api_verify_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Verification"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/guidance": {
+      "post": {
+        "summary": "Guide",
+        "operationId": "guide_api_guidance_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Guidance"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/urgency": {
+      "post": {
+        "summary": "Urgency",
+        "operationId": "urgency_api_urgency_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UrgencyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UrgencyAssessment"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ocr": {
+      "post": {
+        "summary": "Ocr",
+        "operationId": "ocr_api_ocr_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_ocr_api_ocr_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OCR"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/conflict": {
+      "post": {
+        "summary": "Check Conflict",
+        "operationId": "check_conflict_api_conflict_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConflictInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Conflict"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/chat": {
+      "post": {
+        "summary": "Chat",
+        "operationId": "chat_api_chat_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatAnswer"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/shelters": {
+      "get": {
+        "summary": "Nearby Shelters",
+        "operationId": "nearby_shelters_api_shelters_get",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 90,
+              "minimum": -90,
+              "title": "Lat"
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "maximum": 180,
+              "minimum": -180,
+              "title": "Lon"
+            }
+          },
+          {
+            "name": "radius_km",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "maximum": 50,
+              "minimum": 0.5,
+              "default": 10,
+              "title": "Radius Km"
+            }
+          },
+          {
+            "name": "disaster",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "general",
+              "title": "Disaster"
+            }
+          },
+          {
+            "name": "country",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "pattern": "^(US|JP)$",
+              "default": "US",
+              "title": "Country"
+            }
+          },
+          {
+            "name": "include_registered",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Registered"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ShelterSearch"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/shelters/route": {
+      "post": {
+        "summary": "Walking Route",
+        "operationId": "walking_route_api_shelters_route_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RouteInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WalkingRoute"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/navigation/config": {
+      "get": {
+        "summary": "Navigation Config",
+        "operationId": "navigation_config_api_navigation_config_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/navigation/route": {
+      "post": {
+        "summary": "Navigation Route",
+        "operationId": "navigation_route_api_navigation_route_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NavigationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/journey/context": {
+      "post": {
+        "summary": "Journey Context",
+        "operationId": "journey_context_api_journey_context_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Input"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/earthquakes": {
+      "get": {
+        "summary": "Japan Earthquakes",
+        "operationId": "japan_earthquakes_api_japan_earthquakes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/earthquakes/{filename}": {
+      "get": {
+        "summary": "Japan Earthquake",
+        "operationId": "japan_earthquake_api_japan_earthquakes__filename__get",
+        "parameters": [
+          {
+            "name": "filename",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Filename"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/tsunami": {
+      "get": {
+        "summary": "Japan Tsunami",
+        "operationId": "japan_tsunami_api_japan_tsunami_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/japan/tsunami-coasts": {
+      "get": {
+        "summary": "Japan Tsunami Coasts",
+        "operationId": "japan_tsunami_coasts_api_japan_tsunami_coasts_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alert": {
+        "properties": {
+          "geometry": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Geometry"
+          },
+          "message_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Message Type"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "event": {
+            "type": "string",
+            "title": "Event"
+          },
+          "headline": {
+            "type": "string",
+            "title": "Headline"
+          },
+          "area": {
+            "type": "string",
+            "title": "Area"
+          },
+          "severity": {
+            "type": "string",
+            "title": "Severity"
+          },
+          "sender": {
+            "type": "string",
+            "title": "Sender"
+          },
+          "sent": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sent"
+          },
+          "effective": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Effective"
+          },
+          "expires": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expires"
+          },
+          "onset": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Onset"
+          },
+          "ends": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends"
+          },
+          "instruction": {
+            "type": "string",
+            "title": "Instruction"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "event",
+          "headline",
+          "area",
+          "severity",
+          "sender",
+          "sent",
+          "effective",
+          "expires",
+          "instruction",
+          "source",
+          "text",
+          "checked_at"
+        ],
+        "title": "Alert"
+      },
+      "Alerts": {
+        "properties": {
+          "alerts": {
+            "items": {
+              "$ref": "#/components/schemas/Alert"
+            },
+            "type": "array",
+            "title": "Alerts"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "alerts",
+          "checked_at"
+        ],
+        "title": "Alerts"
+      },
+      "Body_ocr_api_ocr_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_ocr_api_ocr_post"
+      },
+      "Card": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "official",
+              "general"
+            ],
+            "title": "Category"
+          },
+          "agency": {
+            "type": "string",
+            "title": "Agency"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          },
+          "condition": {
+            "type": "string",
+            "title": "Condition"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "text",
+          "category",
+          "agency",
+          "url",
+          "condition",
+          "checked_at"
+        ],
+        "title": "Card"
+      },
+      "ChatAction": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "path": {
+            "type": "string",
+            "title": "Path"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "label",
+          "path"
+        ],
+        "title": "ChatAction"
+      },
+      "ChatAnswer": {
+        "properties": {
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/ChatSource"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "evidence",
+              "rule",
+              "unavailable",
+              "live",
+              "scope",
+              "clarify"
+            ],
+            "title": "Mode"
+          },
+          "intent": {
+            "type": "string",
+            "enum": [
+              "alerts",
+              "shelters",
+              "navigation",
+              "analysis",
+              "urgency",
+              "guidance",
+              "itinerary",
+              "notifications",
+              "japan_disasters",
+              "app_help",
+              "alert_question",
+              "scope",
+              "greeting",
+              "clarify"
+            ],
+            "title": "Intent",
+            "default": "alert_question"
+          },
+          "query_location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChatLocation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "place_candidates": {
+            "items": {
+              "$ref": "#/components/schemas/ChatPlaceCandidate"
+            },
+            "type": "array",
+            "title": "Place Candidates"
+          },
+          "needs_location": {
+            "type": "boolean",
+            "title": "Needs Location",
+            "default": false
+          },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ChatItem"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "scope_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Scope Note"
+          },
+          "ai_used": {
+            "type": "boolean",
+            "title": "Ai Used",
+            "default": false
+          },
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/ChatAction"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "tools_used": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tools Used"
+          },
+          "urgency": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/UrgencyAssessment"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "translation": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Translation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "answer",
+          "sources",
+          "checked_at",
+          "mode"
+        ],
+        "title": "ChatAnswer"
+      },
+      "ChatInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 16000,
+            "title": "Text",
+            "default": ""
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP",
+              "unknown"
+            ],
+            "title": "Country",
+            "default": "unknown"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "question": {
+            "type": "string",
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Question"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/ChatTurn"
+            },
+            "type": "array",
+            "maxItems": 8,
+            "title": "History"
+          },
+          "stay": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Stay"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "location": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChatLocation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "weather_scope": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:US:[A-Z]{2}:[A-Z]{2}[CZ][0-9]{3}|JP:[0-9]{6}:[0-9]{7})$"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Weather Scope"
+          },
+          "place_selection": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ChatLocation"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "previous_intent": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "alerts",
+                  "shelters",
+                  "navigation",
+                  "analysis",
+                  "urgency",
+                  "guidance",
+                  "itinerary",
+                  "notifications",
+                  "japan_disasters",
+                  "app_help",
+                  "alert_question",
+                  "scope",
+                  "greeting",
+                  "clarify"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Previous Intent"
+          },
+          "related_alert_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 5,
+            "title": "Related Alert Ids"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "ChatInput"
+      },
+      "ChatItem": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "alert",
+              "shelter",
+              "info"
+            ],
+            "title": "Kind"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "path": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Path"
+          },
+          "distance_m": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Distance M"
+          },
+          "alert": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Alert"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "title",
+          "detail",
+          "status",
+          "source"
+        ],
+        "title": "ChatItem"
+      },
+      "ChatLocation": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP"
+            ],
+            "title": "Country"
+          },
+          "lat": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "title": "Name",
+            "default": "등록한 위치"
+          },
+          "approximate": {
+            "type": "boolean",
+            "title": "Approximate",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "country",
+          "lat",
+          "lon"
+        ],
+        "title": "ChatLocation"
+      },
+      "ChatPlaceCandidate": {
+        "properties": {
+          "location": {
+            "$ref": "#/components/schemas/ChatLocation"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "approximate": {
+            "type": "boolean",
+            "title": "Approximate",
+            "default": false
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "location",
+          "label",
+          "source"
+        ],
+        "title": "ChatPlaceCandidate"
+      },
+      "ChatSource": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "quote": {
+            "type": "string",
+            "title": "Quote"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "quote"
+        ],
+        "title": "ChatSource"
+      },
+      "ChatTurn": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "title": "Role"
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 1800,
+            "minLength": 1,
+            "title": "Text"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "role",
+          "text"
+        ],
+        "title": "ChatTurn"
+      },
+      "Conflict": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "겹침 확인",
+              "겹칠 가능성",
+              "현재 확인된 겹침 없음",
+              "메시지 만료",
+              "해제",
+              "판정 불가"
+            ],
+            "title": "Status"
+          },
+          "reasons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Reasons"
+          },
+          "spatial": {
+            "type": "string",
+            "title": "Spatial"
+          },
+          "temporal": {
+            "type": "string",
+            "title": "Temporal"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "interval_utc": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Interval Utc"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "reasons",
+          "spatial",
+          "temporal",
+          "checked_at"
+        ],
+        "title": "Conflict"
+      },
+      "ConflictInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 16000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP",
+              "unknown"
+            ],
+            "title": "Country",
+            "default": "unknown"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "stay": {
+            "$ref": "#/components/schemas/Stay"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "stay"
+        ],
+        "title": "ConflictInput"
+      },
+      "Fact": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "hazard",
+              "area",
+              "issued_time",
+              "message_expiration",
+              "start_time",
+              "end_time",
+              "level",
+              "audience",
+              "required_action",
+              "recommended_action",
+              "prohibition",
+              "number_unit",
+              "negation",
+              "condition"
+            ],
+            "title": "Kind"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value"
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Quote"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "value",
+          "quote"
+        ],
+        "title": "Fact"
+      },
+      "Glossary": {
+        "properties": {
+          "term": {
+            "type": "string",
+            "title": "Term"
+          },
+          "meaning": {
+            "type": "string",
+            "title": "Meaning"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "term",
+          "meaning"
+        ],
+        "title": "Glossary"
+      },
+      "Guidance": {
+        "properties": {
+          "cards": {
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            },
+            "type": "array",
+            "title": "Cards"
+          },
+          "provenance": {
+            "type": "string",
+            "title": "Provenance"
+          },
+          "limitations": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Limitations"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cards",
+          "provenance",
+          "limitations"
+        ],
+        "title": "Guidance"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Health": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "ai_configured": {
+            "type": "boolean",
+            "title": "Ai Configured"
+          },
+          "model": {
+            "type": "string",
+            "title": "Model"
+          },
+          "ocr_available": {
+            "type": "boolean",
+            "title": "Ocr Available"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "ai_configured",
+          "model",
+          "ocr_available"
+        ],
+        "title": "Health"
+      },
+      "Input": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 16000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP",
+              "unknown"
+            ],
+            "title": "Country",
+            "default": "unknown"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "Input"
+      },
+      "Issue": {
+        "properties": {
+          "field": {
+            "type": "string",
+            "enum": [
+              "translation",
+              "summary",
+              "hazard_explanation",
+              "instruction_translation_ko",
+              "glossary"
+            ],
+            "title": "Field",
+            "default": "translation"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "hazard",
+              "area",
+              "issued_time",
+              "message_expiration",
+              "start_time",
+              "end_time",
+              "level",
+              "audience",
+              "required_action",
+              "recommended_action",
+              "prohibition",
+              "number_unit",
+              "negation",
+              "condition"
+            ],
+            "title": "Kind"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "critical",
+              "minor"
+            ],
+            "title": "Severity"
+          },
+          "source_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Quote"
+          },
+          "translation_quote": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translation Quote"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "rule",
+              "ai"
+            ],
+            "title": "Method",
+            "default": "ai"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "severity",
+          "source_quote",
+          "translation_quote",
+          "reason"
+        ],
+        "title": "Issue"
+      },
+      "NavigationInput": {
+        "properties": {
+          "origin": {
+            "type": "string",
+            "maxLength": 240,
+            "minLength": 1,
+            "title": "Origin"
+          },
+          "destination": {
+            "type": "string",
+            "maxLength": 240,
+            "minLength": 1,
+            "title": "Destination"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "WALK",
+              "DRIVE"
+            ],
+            "title": "Mode",
+            "default": "WALK"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "origin",
+          "destination"
+        ],
+        "title": "NavigationInput"
+      },
+      "OCR": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Text"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "note"
+        ],
+        "title": "OCR"
+      },
+      "Origin": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lat",
+          "lon"
+        ],
+        "title": "Origin"
+      },
+      "Preferences": {
+        "properties": {
+          "prefectures": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 47,
+            "title": "Prefectures"
+          },
+          "tsunami_regions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 66,
+            "title": "Tsunami Regions"
+          },
+          "seismic_hazards": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "earthquake",
+                "tsunami"
+              ]
+            },
+            "type": "array",
+            "maxItems": 2,
+            "title": "Seismic Hazards"
+          },
+          "weather_regions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Weather Regions"
+          },
+          "weather_hazards": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "rain",
+                "flood",
+                "wind",
+                "storm",
+                "snow",
+                "heat",
+                "cold",
+                "coastal",
+                "landslide",
+                "fire",
+                "fog",
+                "other"
+              ]
+            },
+            "type": "array",
+            "maxItems": 12,
+            "title": "Weather Hazards"
+          },
+          "minimum_intensity": {
+            "type": "string",
+            "enum": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5-",
+              "5+",
+              "6-",
+              "6+",
+              "7"
+            ],
+            "title": "Minimum Intensity",
+            "default": "3"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "Preferences"
+      },
+      "Registration": {
+        "properties": {
+          "enrollment_code": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 20,
+            "title": "Enrollment Code"
+          },
+          "provider": {
+            "type": "string",
+            "enum": [
+              "apns",
+              "fcm"
+            ],
+            "title": "Provider"
+          },
+          "token": {
+            "type": "string",
+            "maxLength": 4096,
+            "minLength": 20,
+            "title": "Token"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/Preferences"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "enrollment_code",
+          "provider",
+          "token",
+          "preferences"
+        ],
+        "title": "Registration"
+      },
+      "ReviewCandidate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "google_search_url": {
+            "type": "string",
+            "title": "Google Search Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "address",
+          "google_search_url"
+        ],
+        "title": "ReviewCandidate"
+      },
+      "RouteInput": {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "maximum": 90.0,
+            "minimum": -90.0,
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "maximum": 180.0,
+            "minimum": -180.0,
+            "title": "Lon"
+          },
+          "shelter_id": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1,
+            "title": "Shelter Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "lat",
+          "lon",
+          "shelter_id"
+        ],
+        "title": "RouteInput"
+      },
+      "RouteStep": {
+        "properties": {
+          "coordinates": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Coordinates"
+          },
+          "instruction": {
+            "type": "string",
+            "title": "Instruction"
+          },
+          "distance_m": {
+            "type": "number",
+            "title": "Distance M"
+          }
+        },
+        "type": "object",
+        "required": [
+          "instruction",
+          "distance_m"
+        ],
+        "title": "RouteStep"
+      },
+      "Shelter": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP"
+            ],
+            "title": "Country",
+            "default": "US"
+          },
+          "facility_kind": {
+            "type": "string",
+            "title": "Facility Kind",
+            "default": "facility"
+          },
+          "supported_hazards": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Supported Hazards"
+          },
+          "hazard_compatibility": {
+            "type": "string",
+            "enum": [
+              "designated",
+              "unknown"
+            ],
+            "title": "Hazard Compatibility",
+            "default": "unknown"
+          },
+          "remarks": {
+            "type": "string",
+            "title": "Remarks",
+            "default": ""
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "lat": {
+            "type": "number",
+            "title": "Lat"
+          },
+          "lon": {
+            "type": "number",
+            "title": "Lon"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "planned",
+              "registered"
+            ],
+            "title": "Status",
+            "default": "open"
+          },
+          "shelter_type": {
+            "type": "string",
+            "title": "Shelter Type",
+            "default": "other"
+          },
+          "type_label": {
+            "type": "string",
+            "title": "Type Label",
+            "default": "공식 데이터 유형 확인 필요"
+          },
+          "navigable": {
+            "type": "boolean",
+            "title": "Navigable",
+            "default": true
+          },
+          "reference_only": {
+            "type": "boolean",
+            "title": "Reference Only",
+            "default": false
+          },
+          "operating_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operating Status"
+          },
+          "incident_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Incident Name"
+          },
+          "role_label": {
+            "type": "string",
+            "title": "Role Label",
+            "default": "공식 대피 시설"
+          },
+          "classification_source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Classification Source"
+          },
+          "status_label": {
+            "type": "string",
+            "title": "Status Label",
+            "default": "공식 데이터상 운영 중"
+          },
+          "distance_m": {
+            "type": "number",
+            "title": "Distance M"
+          },
+          "bearing_deg": {
+            "type": "number",
+            "title": "Bearing Deg"
+          },
+          "direction": {
+            "type": "string",
+            "title": "Direction"
+          },
+          "wheelchair_accessible": {
+            "type": "string",
+            "title": "Wheelchair Accessible",
+            "default": "확인되지 않음"
+          },
+          "pets": {
+            "type": "string",
+            "title": "Pets",
+            "default": "확인되지 않음"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          },
+          "source_updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "address",
+          "lat",
+          "lon",
+          "distance_m",
+          "bearing_deg",
+          "direction",
+          "source",
+          "checked_at"
+        ],
+        "title": "Shelter"
+      },
+      "ShelterSearch": {
+        "properties": {
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP"
+            ],
+            "title": "Country",
+            "default": "US"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Origin"
+          },
+          "radius_km": {
+            "type": "number",
+            "title": "Radius Km"
+          },
+          "disaster": {
+            "type": "string",
+            "enum": [
+              "general",
+              "hurricane",
+              "tornado",
+              "flood",
+              "wildfire",
+              "landslide",
+              "storm_surge",
+              "earthquake",
+              "tsunami",
+              "fire",
+              "inland_flood",
+              "volcano"
+            ],
+            "title": "Disaster",
+            "default": "hurricane"
+          },
+          "shelters": {
+            "items": {
+              "$ref": "#/components/schemas/Shelter"
+            },
+            "type": "array",
+            "title": "Shelters"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          },
+          "sources": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "pending_review": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewCandidate"
+            },
+            "type": "array",
+            "title": "Pending Review"
+          },
+          "excluded_count": {
+            "type": "integer",
+            "title": "Excluded Count",
+            "default": 0
+          },
+          "building_search_enabled": {
+            "type": "boolean",
+            "title": "Building Search Enabled",
+            "default": false
+          },
+          "truncated": {
+            "type": "boolean",
+            "title": "Truncated",
+            "default": false
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": "직선거리 순입니다. 공식 데이터의 운영 표시는 현장 입소 가능 여부를 보장하지 않습니다."
+          }
+        },
+        "type": "object",
+        "required": [
+          "origin",
+          "radius_km",
+          "shelters",
+          "checked_at",
+          "source"
+        ],
+        "title": "ShelterSearch"
+      },
+      "Stay": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP"
+            ],
+            "title": "Country"
+          },
+          "latitude": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 90.0,
+                "minimum": -90.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Latitude"
+          },
+          "longitude": {
+            "anyOf": [
+              {
+                "type": "number",
+                "maximum": 180.0,
+                "minimum": -180.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Longitude"
+          },
+          "municipality": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Municipality"
+          },
+          "timezone": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Timezone"
+          },
+          "start": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1,
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1,
+            "title": "End"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "name",
+          "country",
+          "timezone",
+          "start",
+          "end"
+        ],
+        "title": "Stay"
+      },
+      "Translation": {
+        "properties": {
+          "translation": {
+            "type": "string",
+            "maxLength": 24000,
+            "minLength": 1,
+            "title": "Translation"
+          },
+          "hazard_explanation": {
+            "type": "string",
+            "title": "Hazard Explanation"
+          },
+          "glossary": {
+            "items": {
+              "$ref": "#/components/schemas/Glossary"
+            },
+            "type": "array",
+            "title": "Glossary"
+          },
+          "summary": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Summary"
+          },
+          "instruction_translation_ko": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Instruction Translation Ko"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "translation",
+          "hazard_explanation",
+          "glossary",
+          "summary"
+        ],
+        "title": "Translation"
+      },
+      "Update": {
+        "properties": {
+          "token": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 4096,
+                "minLength": 20
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token"
+          },
+          "preferences": {
+            "$ref": "#/components/schemas/Preferences"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "preferences"
+        ],
+        "title": "Update"
+      },
+      "UrgencyAssessment": {
+        "properties": {
+          "level": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  4
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Level"
+          },
+          "label": {
+            "type": "string",
+            "enum": [
+              "정보",
+              "주의",
+              "대비",
+              "대피",
+              "확인 필요"
+            ],
+            "title": "Label"
+          },
+          "action_kind": {
+            "type": "string",
+            "enum": [
+              "monitor",
+              "caution",
+              "prepare",
+              "protect",
+              "shelter",
+              "higher_ground",
+              "evacuate",
+              "unknown"
+            ],
+            "title": "Action Kind"
+          },
+          "headline": {
+            "type": "string",
+            "title": "Headline"
+          },
+          "meaning": {
+            "type": "string",
+            "title": "Meaning"
+          },
+          "actions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Actions"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/UrgencyEvidence"
+            },
+            "type": "array",
+            "title": "Evidence"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/UrgencySource"
+            },
+            "type": "array",
+            "title": "Sources"
+          },
+          "provenance": {
+            "type": "string",
+            "enum": [
+              "official",
+              "input",
+              "example"
+            ],
+            "title": "Provenance"
+          },
+          "applicability": {
+            "type": "string",
+            "title": "Applicability"
+          },
+          "notice": {
+            "type": "string",
+            "title": "Notice"
+          },
+          "inactive": {
+            "type": "boolean",
+            "title": "Inactive",
+            "default": false
+          },
+          "rule_version": {
+            "type": "string",
+            "title": "Rule Version",
+            "default": "us-jp-action-scale-2"
+          },
+          "method": {
+            "type": "string",
+            "enum": [
+              "rules",
+              "ai",
+              "rules_fallback"
+            ],
+            "title": "Method",
+            "default": "rules"
+          },
+          "method_note": {
+            "type": "string",
+            "title": "Method Note",
+            "default": "원문 표현을 기준으로 판단했어요."
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "level",
+          "label",
+          "action_kind",
+          "headline",
+          "meaning",
+          "actions",
+          "evidence",
+          "sources",
+          "provenance",
+          "applicability",
+          "notice"
+        ],
+        "title": "UrgencyAssessment"
+      },
+      "UrgencyEvidence": {
+        "properties": {
+          "quote": {
+            "type": "string",
+            "title": "Quote"
+          },
+          "explanation": {
+            "type": "string",
+            "title": "Explanation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "quote",
+          "explanation"
+        ],
+        "title": "UrgencyEvidence"
+      },
+      "UrgencyInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 16000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP",
+              "unknown"
+            ],
+            "title": "Country",
+            "default": "unknown"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "use_ai": {
+            "type": "boolean",
+            "title": "Use Ai",
+            "default": true
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text"
+        ],
+        "title": "UrgencyInput"
+      },
+      "UrgencySource": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "url": {
+            "type": "string",
+            "title": "Url"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "title",
+          "url"
+        ],
+        "title": "UrgencySource"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "Verification": {
+        "properties": {
+          "checked_fields": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "translation",
+                "summary",
+                "hazard_explanation",
+                "instruction_translation_ko",
+                "glossary"
+              ]
+            },
+            "type": "array",
+            "title": "Checked Fields"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "불일치 미탐지",
+              "오류 의심",
+              "불일치 탐지",
+              "검증 불가"
+            ],
+            "title": "Status"
+          },
+          "issues": {
+            "items": {
+              "$ref": "#/components/schemas/Issue"
+            },
+            "type": "array",
+            "title": "Issues"
+          },
+          "unresolved": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Unresolved"
+          },
+          "source_facts": {
+            "items": {
+              "$ref": "#/components/schemas/Fact"
+            },
+            "type": "array",
+            "title": "Source Facts"
+          },
+          "translated_facts": {
+            "items": {
+              "$ref": "#/components/schemas/Fact"
+            },
+            "type": "array",
+            "title": "Translated Facts"
+          },
+          "official_fields": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Official Fields"
+          },
+          "checks": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Checks"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "issues",
+          "unresolved",
+          "source_facts",
+          "translated_facts",
+          "official_fields",
+          "checks"
+        ],
+        "title": "Verification"
+      },
+      "VerifyInput": {
+        "properties": {
+          "text": {
+            "type": "string",
+            "maxLength": 16000,
+            "minLength": 1,
+            "title": "Text"
+          },
+          "country": {
+            "type": "string",
+            "enum": [
+              "US",
+              "JP",
+              "unknown"
+            ],
+            "title": "Country",
+            "default": "unknown"
+          },
+          "alert_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Alert Id"
+          },
+          "displayed": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "propertyNames": {
+              "enum": [
+                "translation",
+                "summary",
+                "hazard_explanation",
+                "instruction_translation_ko",
+                "glossary"
+              ]
+            },
+            "type": "object",
+            "maxProperties": 4,
+            "title": "Displayed"
+          },
+          "translation": {
+            "type": "string",
+            "maxLength": 24000,
+            "minLength": 1,
+            "title": "Translation"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "text",
+          "translation"
+        ],
+        "title": "VerifyInput"
+      },
+      "WalkingRoute": {
+        "properties": {
+          "shelter_id": {
+            "type": "string",
+            "title": "Shelter Id"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/Origin"
+          },
+          "distance_m": {
+            "type": "number",
+            "title": "Distance M"
+          },
+          "duration_s": {
+            "type": "number",
+            "title": "Duration S"
+          },
+          "coordinates": {
+            "items": {
+              "items": {
+                "type": "number"
+              },
+              "type": "array"
+            },
+            "type": "array",
+            "title": "Coordinates"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/RouteStep"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "checked_at": {
+            "type": "string",
+            "title": "Checked At"
+          },
+          "routing_criterion": {
+            "type": "string",
+            "title": "Routing Criterion",
+            "default": "제공된 도보 경로 중 예상시간 최소, 동률이면 거리 최소"
+          },
+          "alternatives_evaluated": {
+            "type": "integer",
+            "title": "Alternatives Evaluated",
+            "default": 1
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "https://routing.openstreetmap.de/about.html"
+          },
+          "attribution": {
+            "type": "string",
+            "title": "Attribution",
+            "default": "경로: FOSSGIS / OSRM · © OpenStreetMap contributors (ODbL)"
+          },
+          "note": {
+            "type": "string",
+            "title": "Note",
+            "default": "일반 보행 경로입니다. 침수·재난·도로 통제와 현장 안전은 반영하지 않습니다."
+          }
+        },
+        "type": "object",
+        "required": [
+          "shelter_id",
+          "origin",
+          "distance_m",
+          "duration_s",
+          "coordinates",
+          "steps",
+          "checked_at"
+        ],
+        "title": "WalkingRoute"
+      }
+    }
+  }
+}

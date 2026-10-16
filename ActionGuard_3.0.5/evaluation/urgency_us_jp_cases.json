@@ -1,0 +1,61 @@
+{
+  "provenance": "Synthetic/constructed examples; not a real anonymized SMS corpus. Expected app reference levels reviewed for these examples only.",
+  "cases": [
+    {
+      "id": "us-wind-advisory",
+      "country": "US",
+      "text": "Wind Advisory for Indian Wells Valley and Mojave Desert. Gusts up to 60 mph. Secure loose objects and use extra caution when driving.",
+      "expected_level": 2,
+      "expected_kind": "caution"
+    },
+    {
+      "id": "us-free-form-wind",
+      "country": "US",
+      "text": "Local officials advise caution due to strong wind gusts. Secure loose outdoor objects and use caution when driving.",
+      "expected_level": 2,
+      "expected_kind": "caution"
+    },
+    {
+      "id": "jp-wind-advisory",
+      "country": "JP",
+      "text": "気象庁 発表: 強風注意報。対象地域: 千代田区。状況: 継続。",
+      "expected_level": 2,
+      "expected_kind": "caution"
+    },
+    {
+      "id": "jp-wind-warning",
+      "country": "JP",
+      "text": "暴風警報が発表されました。不要不急の外出を控え、安全な屋内で過ごしてください。",
+      "expected_level": 3,
+      "expected_kind": "protect"
+    },
+    {
+      "id": "jp-tsunami-warning",
+      "country": "JP",
+      "text": "津波警報が発表されました。海岸付近の方は直ちに高台へ避難してください。",
+      "expected_level": 4,
+      "expected_kind": "higher_ground"
+    },
+    {
+      "id": "jp-direct-instruction",
+      "country": "JP",
+      "text": "海岸にいる皆さん、今すぐ高台へ避難してください。",
+      "expected_level": 4,
+      "expected_kind": "higher_ground"
+    },
+    {
+      "id": "us-conditional-order",
+      "country": "US",
+      "text": "If ordered by local officials, evacuate now.",
+      "expected_level": null,
+      "expected_kind": "unknown"
+    },
+    {
+      "id": "jp-no-order",
+      "country": "JP",
+      "text": "避難指示は発令されていません。",
+      "expected_level": null,
+      "expected_kind": "unknown"
+    }
+  ]
+}

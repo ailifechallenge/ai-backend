@@ -1,0 +1,24 @@
+{
+  "shelters": {
+    "count": 20,
+    "sources": [
+      "https://gis.fema.gov/arcgis/rest/services/NSS/FEMA_NSS/MapServer/0",
+      "https://data.cityofnewyork.us/resource/p5md-weyf.geojson"
+    ],
+    "warnings": [],
+    "states": {
+      "open": 0,
+      "planned": 20,
+      "registered": 0
+    },
+    "checked_at": "2026-10-15T05:04:12.541520+00:00"
+  },
+  "walking": {
+    "provider": "osrm",
+    "verification": "not_requested",
+    "traffic_verified": false,
+    "distance_m": 1056.0,
+    "duration_s": 846.5,
+    "points": 58
+  }
+}

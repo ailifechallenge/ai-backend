@@ -1,0 +1,40 @@
+{
+  "backend_source_files_compared": 60,
+  "backend_source_differences": [
+    "backend/adapters/assistant_places.py",
+    "backend/adapters/shelters.py",
+    "backend/core/app_assistant.py",
+    "backend/models/shelters.py"
+  ],
+  "backend_tests": {
+    "passed": 411,
+    "skipped": 2
+  },
+  "frontend_tests": {
+    "passed": 121
+  },
+  "build": "passed",
+  "new_shell_lint": "passed",
+  "live_checks": {
+    "US_official_alerts": "passed; example point returned zero alerts",
+    "JP_area_catalog": "passed; 58 entries",
+    "JP_earthquakes": "passed; 30 entries",
+    "JP_tsunami": "passed",
+    "JP_shelters": "passed; 5 example-point facilities",
+    "JP_general_navigation": "passed; OSRM",
+    "assistant_without_alert": "passed; app capabilities response",
+    "US_gemini_translation": "passed; synthetic exercise text",
+    "JP_gemini_translation": "passed on retry; initial provider request returned HTTP 502",
+    "OCR": "unavailable; Tesseract executable missing",
+    "physical_device_push": "not validated",
+    "synthetic_full_analysis_ui": "translation, action scale, guidance and partial-verification notice displayed",
+    "assistant_named_origin": "Statue of Liberty identified through POI search; no destinations returned by current general FEMA feed within 10km",
+    "assistant_broad_region": "California asks for city instead of generic location setup",
+    "assistant_city_followup": "California clarification followed by San Francisco reused shelter intent and queried San Francisco coordinates",
+    "US_general_NYC_shelters": "26 designated hurricane centers returned as reference-only; 0 FEMA open destination candidates; nearest reference from NYC representative point M.S. 131",
+    "assistant_US_general": "Lists three named reference facilities with distances, closed/open unknown labels and map links"
+  },
+  "runtime": "frontend and backend identity match final code in new Desktop folder",
+  "assistant_origin_fix": "AI_ASSISTANT_ORIGINS_FIX.md",
+  "us_general_shelters_fix": "US_GENERAL_SHELTERS_FIX.md"
+}
