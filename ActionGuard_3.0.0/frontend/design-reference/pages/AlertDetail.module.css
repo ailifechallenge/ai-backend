@@ -1,0 +1,185 @@
+.label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+  margin-top: var(--space-4);
+}
+
+.label:first-child {
+  margin-top: 0;
+}
+
+.nameRow {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: 2px;
+}
+
+.nameEn {
+  flex: 1 1 200px;
+  min-width: 0;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.meaning {
+  margin-top: 2px;
+  font-size: 15.5px;
+  line-height: 1.55;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-3);
+}
+
+.chip {
+  min-height: 36px;
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  font-size: 13.5px;
+  font-weight: 700;
+  /* 터치 영역 보정 */
+  position: relative;
+}
+
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: -4px 0;
+}
+
+.areaTime {
+  margin-top: 2px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.strong {
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.sub {
+  margin-top: 4px;
+  font-size: 13.5px;
+  color: var(--color-text-sub);
+}
+
+.changes {
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 0 var(--space-5);
+}
+
+.changes[open] {
+  padding-bottom: var(--space-4);
+}
+
+.summaryToggle {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 var(--space-3);
+  border-left: 2px solid var(--color-border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.timeline li {
+  display: flex;
+  gap: var(--space-3);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.time {
+  flex: none;
+  font-weight: 700;
+  color: var(--color-primary-strong);
+}
+
+.changeText {
+  min-width: 0;
+}
+
+/* "오늘 18:30까지(현지)" 같은 조각이 중간에서 끊기지 않게 */
+.segment {
+  display: inline-block;
+}
+
+.times {
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-3);
+  font-size: 14.5px;
+  line-height: 1.5;
+}
+
+.timeRow dt {
+  flex: none;
+  min-width: 72px;
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
+.timeRow dd {
+  margin: 0;
+  font-weight: 600;
+  min-width: 0;
+}
+
+.hint {
+  margin-top: 4px;
+  font-size: 12.5px;
+  color: var(--color-text-sub);
+}
+
+.summary {
+  margin: 0 0 var(--space-2);
+  padding-left: 18px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.fullTranslation {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fullTranslation summary {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  color: var(--color-primary-strong);
+  cursor: pointer;
+}
+
+.fullTranslation p {
+  white-space: pre-line;
+}

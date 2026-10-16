@@ -1,0 +1,16 @@
+.main {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--space-6);
+  min-width: 0;
+}
+
+/* 고정 탭바에 마지막 콘텐츠가 가려지지 않도록 탭바 높이만큼 여백 추가 */
+.withTabs {
+  padding-bottom: calc(var(--space-6) + var(--tabbar-total));
+}
+
+.bare {
+  padding-bottom: 0;
+}

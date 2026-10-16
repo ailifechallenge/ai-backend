@@ -1,0 +1,14 @@
+
+> actionguard-travel@2.0.0 test
+> vitest run --reporter=dot
+
+
+ RUN  v5.0.4 <project>/frontend
+
+·······
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  08:58:39
+   Duration  1.37s (tests 46%, environment 33%, setup 9%, import 9%, transform 2%)
+

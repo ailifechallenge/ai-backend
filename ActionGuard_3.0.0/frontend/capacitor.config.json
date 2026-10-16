@@ -1,0 +1,7 @@
+{
+  "appId": "com.actionguard.travel",
+  "appName": "ActionGuard Travel",
+  "webDir": "dist",
+  "server": {"androidScheme": "https"},
+  "plugins": {"PushNotifications": {"presentationOptions": ["badge", "sound", "banner", "list"]}}
+}

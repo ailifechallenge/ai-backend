@@ -1,0 +1,26 @@
+.card {
+  background: var(--color-emergency-bg);
+  color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--space-5);
+}
+
+.label {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.8;
+  margin-bottom: var(--space-2);
+}
+
+.en {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.35;
+  word-break: normal;
+}
+
+.ko {
+  margin-top: var(--space-2);
+  font-size: 14px;
+  opacity: 0.85;
+}

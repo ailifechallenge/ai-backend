@@ -1,0 +1,25 @@
+{
+  "source_zip": "ai-frontend-dev.zip",
+  "original_files_byte_identical": {
+    "styles/tokens.css": true,
+    "styles/global.css": true,
+    "components/Button.module.css": true,
+    "components/Card.module.css": true,
+    "components/PageHeader.module.css": true,
+    "components/TabBar.module.css": true,
+    "components/StatusBadge.module.css": true,
+    "components/EmergencyContacts.module.css": true,
+    "components/AlertCard.module.css": true,
+    "components/ChatBubble.module.css": true,
+    "pages/Home.module.css": true,
+    "pages/Onboarding.module.css": true,
+    "pages/Chat.module.css": true,
+    "pages/Prepare.module.css": true
+  },
+  "viewport": {
+    "width": 402,
+    "height": 874
+  },
+  "frontend_tests_passed": 121,
+  "build": "passed"
+}

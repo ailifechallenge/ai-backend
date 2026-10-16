@@ -1,0 +1,7 @@
+import {it,expect,vi} from 'vitest';
+import {render,screen,fireEvent,act} from '@testing-library/react';
+import RouteCoach from './RouteCoach';
+import type {WalkingRoute} from './types';
+const route={steps:[{instruction:'출발',distance_m:100,coordinates:[[139,35],[139.001,35]]},{instruction:'왼쪽으로',distance_m:80,coordinates:[[139.001,35],[139.001,35.001]]}]} as WalkingRoute;
+it('lets users resume any step and return to the previous step',()=>{render(<RouteCoach route={route} onPosition={()=>{}}/>);fireEvent.click(screen.getByText('다음 구간'));expect(screen.getByRole('heading')).toHaveTextContent('왼쪽으로');fireEvent.click(screen.getByText('이전 구간'));expect(screen.getByRole('heading')).toHaveTextContent('출발');});
+it('starts GPS only on request and clears it on unmount',()=>{let success!:PositionCallback;const clearWatch=vi.fn(),watchPosition=vi.fn((cb:PositionCallback)=>{success=cb;return 7;});Object.defineProperty(navigator,'geolocation',{configurable:true,value:{watchPosition,clearWatch}});const view=render(<RouteCoach route={route} onPosition={()=>{}}/>);expect(watchPosition).not.toHaveBeenCalled();fireEvent.click(screen.getByText('내 위치로 구간 따라가기'));act(()=>success({coords:{latitude:35.0008,longitude:139.001,accuracy:5},timestamp:Date.now()} as GeolocationPosition));expect(screen.getByRole('heading')).toHaveTextContent('왼쪽으로');view.unmount();expect(clearWatch).toHaveBeenCalledWith(7);});

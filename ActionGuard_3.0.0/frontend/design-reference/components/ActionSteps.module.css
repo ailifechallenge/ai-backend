@@ -1,0 +1,139 @@
+.source {
+  font-size: 12px;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+}
+
+.official + .official {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.officialLabel {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--color-emergency-bg);
+}
+
+.officialText {
+  margin-top: 4px;
+  font-size: 14.5px;
+  font-weight: 600;
+  line-height: 1.55;
+  white-space: pre-line;
+  word-break: normal;
+}
+
+.details {
+  margin-top: 4px;
+  font-size: 13.5px;
+}
+
+.details summary {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  color: var(--color-primary-strong);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ko {
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 12px;
+  background: var(--color-primary-soft);
+}
+
+.koText {
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.trState {
+  margin-top: var(--space-2);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+.condition {
+  margin-top: var(--space-2);
+  font-size: 12.5px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.generalList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.general + .general {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.generalTitle {
+  font-size: 14.5px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.generalText {
+  margin-top: 4px;
+  font-size: 14px;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+.retry {
+  margin-top: var(--space-3);
+}
+
+.unknown {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.unknownIcon {
+  flex: none;
+  color: var(--color-text-sub);
+  margin-top: 2px;
+}
+
+.body {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.unknownStrong {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.unknownText {
+  margin-top: 2px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}

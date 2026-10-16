@@ -1,0 +1,63 @@
+.nowrap {
+  white-space: nowrap;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  margin: -12px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.empty {
+  font-size: 14.5px;
+  color: var(--color-text-sub);
+  font-weight: 600;
+}
+
+.others {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+/* 홈 카드 간격 12px */
+.body {
+  gap: var(--space-3);
+}
+
+/* 카드 밖에 떠 있던 안내 문구를 담는 작은 흰 카드 */
+.noteCard {
+  padding: var(--space-3) var(--space-4);
+}
+
+/* 상단바에서 옮겨 온 현재 위치 박스 */
+.locationBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.locationIcon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}

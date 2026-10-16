@@ -1,0 +1,14 @@
+
+> actionguard-travel@2.0.0 build
+> tsc -b && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 1631 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.52 kB │ gzip:   0.37 kB
+dist/assets/index-A0YS7UTU.css   26.45 kB │ gzip:   6.77 kB
+dist/assets/index-CmQNVNef.js   349.72 kB │ gzip: 110.93 kB
+
+✓ built in 248ms
