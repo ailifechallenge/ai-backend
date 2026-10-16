@@ -237,6 +237,20 @@ class ChatLocation(Model):
     lat: float = Field(ge=-90, le=90, allow_inf_nan=False)
     lon: float = Field(ge=-180, le=180, allow_inf_nan=False)
     name: str = Field(default='등록한 위치', max_length=120)
+    approximate: bool = False
+
+
+class ChatPlaceQuery(Model):
+    mention: str | None = Field(default=None,max_length=120)
+    query: str | None = Field(default=None,max_length=160)
+    country: Literal['US','JP'] | None = None
+
+
+class ChatPlaceCandidate(Model):
+    location: ChatLocation
+    label: str
+    approximate: bool = False
+    source: str
 
 
 ChatIntent = Literal['alerts','shelters','navigation','analysis','urgency','guidance','itinerary','notifications','japan_disasters','app_help','alert_question','scope','greeting','clarify']
@@ -251,6 +265,7 @@ class ChatInput(Model):
     stay: Stay | None = None
     location: ChatLocation | None = None
     weather_scope: str | None = Field(default=None, pattern=r'^(?:US:[A-Z]{2}:[A-Z]{2}[CZ][0-9]{3}|JP:[0-9]{6}:[0-9]{7})$')
+    place_selection: ChatLocation | None = None
     previous_intent: ChatIntent | None = None
     related_alert_ids: list[str] = Field(default_factory=list, max_length=5)
 
@@ -320,6 +335,8 @@ class ChatAnswer(Model):
     checked_at: str
     mode: Literal['evidence', 'rule', 'unavailable', 'live', 'scope', 'clarify']
     intent: ChatIntent = 'alert_question'
+    query_location: ChatLocation | None = None
+    place_candidates: list[ChatPlaceCandidate] = Field(default_factory=list)
     needs_location: bool = False
     items: list[ChatItem] = Field(default_factory=list)
     scope_note: str | None = None

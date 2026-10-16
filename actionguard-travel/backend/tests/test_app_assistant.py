@@ -153,3 +153,111 @@ def test_raw_alert_and_followup_reuse_only_prior_user_source():
     assert quick_plan(body('High Wind Warning. Gusts up to 60 mph.'))==['analysis']
     run(a.answer(body('다시 번역해 줘',history=[{'role':'user','text':'번역: 強風注意報'},{'role':'assistant','text':'WRONG SOURCE'}])))
     assert translate.await_args.args[0].text=='強風注意報'
+
+# Regression cases reported by the user: named places, direct earthquake facts, conversational location.
+def test_user_examples_route_without_unrequested_second_task():
+    assert quick_plan(body('일본 지진 났는데 어디서 났어?'))==['japan_disasters']
+    assert quick_plan(body('지금 지진 났는데 도쿄역에서 가장 가까운 대피소 알려줘'))==['shelters']
+
+
+def test_named_place_overrides_registered_place_without_mutating_it():
+    from backend.models.contracts import ChatPlaceQuery,ChatPlaceCandidate
+    from backend.models.shelters import ShelterSearch
+    named=ChatLocation(**POINT)
+    places=SimpleNamespace(extract=AsyncMock(return_value=ChatPlaceQuery(mention='도쿄역',query='東京駅',country='JP')),search=AsyncMock(return_value=[ChatPlaceCandidate(location=named,label='도쿄역',source='https://maps.gsi.go.jp/')]))
+    data=ShelterSearch(country='JP',origin={'lat':named.lat,'lon':named.lon},radius_km=10,disaster='earthquake',shelters=[],checked_at=now(),source='https://www.gsi.go.jp/')
+    local=SimpleNamespace(shelters=AsyncMock(return_value=(data,[])))
+    a=assistant(local);a.places=places
+    original=body('도쿄역에서 가장 가까운 지진 대피소 알려줘',location={'name':'NY','country':'US','lat':40.7,'lon':-74})
+    result=run(a.answer(original))
+    assert local.shelters.await_args.args[0].country=='JP' and local.shelters.await_args.args[1]=='earthquake'
+    assert result.query_location.country=='JP' and original.location.country=='US'
+    assert not result.needs_location
+
+
+def test_ambiguous_places_offer_candidates_before_shelter_lookup():
+    from backend.models.contracts import ChatPlaceQuery,ChatPlaceCandidate
+    local=SimpleNamespace(shelters=AsyncMock())
+    choices=[ChatPlaceCandidate(location=ChatLocation(**{**POINT,'name':n}),label=n,source='https://maps.gsi.go.jp/') for n in ['A','B']]
+    a=assistant(local);a.places=SimpleNamespace(extract=AsyncMock(return_value=ChatPlaceQuery(mention='駅',query='駅')),search=AsyncMock(return_value=choices))
+    result=run(a.answer(body('駅 주변 대피소 알려줘')))
+    assert result.mode=='clarify' and len(result.place_candidates)==2
+    local.shelters.assert_not_awaited()
+
+
+def test_explicit_candidate_is_not_geocoded_again():
+    point=ChatLocation(**{**POINT,'approximate':True})
+    local=SimpleNamespace(alerts=AsyncMock(return_value={'rows':[],'checked_at':now(),'label':'test','country':'JP','scope':None}))
+    a=assistant(local);a.places=SimpleNamespace(extract=AsyncMock(side_effect=AssertionError('must not call')))
+    result=run(a.answer(body('내 지역 현재 경보 있어?',place_selection=point)))
+    assert result.query_location.approximate and '대표 지점' in result.scope_note
+
+
+def test_earthquake_answer_contains_actual_newest_occurrence_and_event_link():
+    old=(datetime.now(timezone.utc)-timedelta(days=1)).isoformat()
+    recent=(datetime.now(timezone.utc)-timedelta(minutes=5)).isoformat()
+    events=[{'id':'old.json','place':'千葉県','occurred_at':old,'magnitude':3.1,'max_intensity':'2'}, {'id':'recent.json','place':'茨城県南部','occurred_at':recent,'magnitude':4.9,'max_intensity':'5-','epicenter':{'lat':36.1,'lon':139.9,'depth_km':50}}]
+    a=assistant();a.seismic=SimpleNamespace(earthquakes=AsyncMock(return_value={'checked_at':now(),'events':events}))
+    result=run(a.answer(body('일본 지진 났는데 어디서 났어?',location=POINT)))
+    assert '이바라키' in result.answer and 'M4.9' in result.answer and '5 약' in result.answer
+    assert '일본 시간' in result.answer and '같은 사건' in result.answer
+    assert 'recent.json' in result.actions[0].path and len(result.items)==2
+    assert '진앙까지 약' in result.items[0].detail and '내 위치의 진도' in result.scope_note
+
+
+def test_cancelled_future_or_stale_quakes_not_presented_as_current():
+    future=(datetime.now(timezone.utc)+timedelta(days=1)).isoformat()
+    a=assistant();a.seismic=SimpleNamespace(earthquakes=AsyncMock(return_value={'checked_at':now(),'events':[{'id':'cancel','cancelled':True,'occurred_at':now()},{'id':'future','occurred_at':future}]}))
+    result=run(a.answer(body('일본 지진 났는데 어디서 났어?')))
+    assert not result.items and '찾지 못했어요' in result.answer
+    a.seismic.earthquakes.return_value['checked_at']='2020-01-01T00:00:00Z'
+    assert run(a.answer(body('일본 최근 지진'))).mode=='unavailable'
+
+
+def test_tsunami_lists_actual_active_coasts_not_only_a_link():
+    a=assistant();a.seismic=SimpleNamespace(tsunami=AsyncMock(return_value={'checked_at':now(),'bulletin':{'current':True,'issued_at':now(),'regions':[{'name':'千葉県','level':'warning','height':'3m'},{'name':'東京都','level':'cleared'}]}}))
+    result=run(a.answer(body('지금 일본 쓰나미 경보 어디 있어?')))
+    assert '지바현' in result.answer and len(result.items)==1
+    assert '3m' in result.items[0].detail
+
+
+def test_place_extraction_validates_exact_quote_and_no_model_coordinates():
+    from backend.adapters.assistant_places import AssistantPlaces
+    from backend.models.contracts import ChatPlaceQuery
+    class Invented:
+        async def structured(self,*args):return ChatPlaceQuery(mention='없는 장소',query='Tokyo',country='JP')
+    assert run(AssistantPlaces(Invented()).extract('어떤 호텔 주변 대피소')) is None
+
+
+def test_city_geocoding_filters_country_and_marks_representative_point():
+    from backend.adapters.assistant_places import AssistantPlaces
+    from backend.models.contracts import ChatPlaceQuery
+    requests=[]
+    def transport(req):
+        requests.append(req)
+        return httpx.Response(200,json={'results':[{'name':'Chicago','country_code':'US','latitude':41.85,'longitude':-87.65,'admin1':'Illinois'},{'name':'Chicago Ridge','country_code':'US','latitude':41.70,'longitude':-87.77},{'name':'Wrong','country_code':'GB','latitude':51,'longitude':0}]})
+    a=AssistantPlaces(Offline(),httpx.AsyncClient(transport=httpx.MockTransport(transport)))
+    found=run(a.search(ChatPlaceQuery(mention='시카고',query='Chicago',country='US')))
+    assert len(found)==1 and found[0].location.approximate
+    assert requests[0].url.params['countryCode']=='US'
+    run(a.search(ChatPlaceQuery(mention='시카고',query='Chicago',country='US')))
+    assert len(requests)==1
+
+
+def test_tokyo_station_reviewed_landmark_works_without_model_or_network():
+    from backend.adapters.assistant_places import AssistantPlaces
+    a=AssistantPlaces(Offline())
+    q=run(a.extract('지금 지진 났는데 도쿄역에서 가장 가까운 대피소 알려줘'))
+    found=run(a.search(q))
+    assert len(found)==1 and not found[0].approximate and found[0].location.name=='도쿄역'
+    assert abs(found[0].location.lat-35.68)<0.01 and 'Q283196' in found[0].source
+
+
+def test_tool_answer_history_never_leaks_registered_place_or_stay_to_model():
+    class Capture:
+        async def structured(self,model,prompt,payload):
+            assert 'PRIVATE_COORDINATE' not in payload and 'PRIVATE_STAY_TIME' not in payload
+            raise HTTPException(503,'offline')
+    a=assistant(gem=Capture())
+    result=run(a.answer(body('운전할 때 주의할 점은?',text='Flood Warning',country='US',history=[{'role':'assistant','text':'PRIVATE_COORDINATE PRIVATE_STAY_TIME'},{'role':'user','text':'대피시설 알려줘'}])))
+    assert result.intent=='alert_question'

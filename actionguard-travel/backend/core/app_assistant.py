@@ -12,6 +12,9 @@ from backend.models.contracts import (
 from backend.core.chat import answer_chat
 from backend.core.quotes import supported_quote
 from backend.core.guidance import guidance
+from backend.adapters.assistant_places import AssistantPlaces, distance
+from backend.adapters.seismic import timestamp
+from backend.core.times import readable_times
 
 OFF_TOPIC=re.compile(r'비트코인|코인\s*(?:시세|추천|투자)|주식\s*(?:추천|투자|시세)|연애|운세|맛집|농담|수학\s*숙제|코드.*(?:짜|작성)|대통령|선거|축구\s*(?:결과|점수)|연예인|이전\s*지시.*무시')
 DOMAIN=re.compile(r'경보|재난|대피|피난|안전|지진|쓰나미|홍수|강풍|태풍|폭염|산불|폭설|낙뢰|침수|여행|문자|번역|검증|일정|숙소|알림|지도|길찾기|응급|준비물|alert|shelter|earthquake|tsunami|避難|警報',re.I)
@@ -49,7 +52,7 @@ def quick_plan(body):
     elif re.search(r'길찾기|이동\s*경로|대피\s*지도',q):plan.append('navigation')
     if re.search(r'알림|푸시|구독',q) and re.search(r'설정|등록|켜|받|오지|활성화|해제|안\s*와|안\s*오|왜|연결|허용',q):plan.append('notifications')
     if re.search(r'일정|체류|숙소.*겹|호텔.*겹',q):plan.append('itinerary')
-    if re.search(r'지진|쓰나미|津波|地震',q) and re.search(r'최근|최신|현재|발생|경보.*(?:있|조회)|지도',q):plan.append('japan_disasters')
+    if not any(i in plan for i in ('shelters','navigation')) and re.search(r'지진|쓰나미|津波|地震',q) and re.search(r'최근|최신|현재|지금|발생|났|어디|경보.*(?:있|조회)|지도',q):plan.append('japan_disasters')
     elif re.search(r'(?:지역|근처|주변|사는\s*곳|사는\s*지역|있는\s*곳).*(?:경보|재난\s*정보|활성화.*정보)|(?:현재|활성|최신|지금).*(?:경보|주의보)|경보.*(?:있어|있나|조회|찾아)',q):plan.append('alerts')
     if re.search(r'대비\s*(?:방법|법)|안전수칙|준비물|무엇.*해야|뭐.*해야|어떻게.*대피',q) and plan:plan.append('guidance' if not body.text else 'alert_question')
     if not plan and re.search(r'대비|대응|행동|주의할|안전수칙|준비물|무엇.*해야|뭐.*해야|어떻게.*대피',q):plan.append('guidance' if not body.text else 'alert_question')
@@ -67,7 +70,8 @@ def event_label(event):
 
 
 class AppAssistant:
-    def __init__(self, local, gemini, linked, callbacks, seismic):
+    def __init__(self, local, gemini, linked, callbacks, seismic, places=None):
+        self.places=places or AssistantPlaces(gemini)
         self.local=local;self.gemini=gemini;self.linked=linked;self.callbacks=callbacks;self.seismic=seismic
 
     async def plan(self,body):
@@ -111,7 +115,9 @@ class AppAssistant:
         if len(results)==1:return results[0]
         result=results[-1].model_copy(update={'answer':'\n\n'.join(r.answer for r in results),'sources':[s for r in results for s in r.sources][:8],
             'items':[i for r in results for i in r.items][:12],'actions':list({a.path:a for r in results for a in r.actions}.values()),
-            'tools_used':list(dict.fromkeys(t for r in results for t in r.tools_used)), 'needs_location':any(r.needs_location for r in results),
+            'tools_used':list(dict.fromkeys(t for r in results for t in r.tools_used)),
+            'query_location':next((r.query_location for r in results if r.query_location),None),
+            'place_candidates':[p for r in results for p in r.place_candidates][:3], 'needs_location':any(r.needs_location for r in results),
             'mode':'unavailable' if any(r.mode=='unavailable' for r in results) else 'live' if any(r.mode=='live' for r in results) else results[-1].mode,
             'ai_used':any(r.ai_used for r in results),'urgency':next((r.urgency for r in results if r.urgency),None),
             'translation':next((r.translation for r in results if r.translation),None)})
@@ -137,6 +143,9 @@ class AppAssistant:
             return self.reply(overlap.status+' — '+' '.join(overlap.reasons),intent,tools_used=['일정·공식 경보 위치·시간 비교'],actions=[action('일정 상세','/itinerary')])
         if intent in ('analysis','urgency'):return await self.analyze(intent,body)
         if intent in ('guidance','alert_question'):
+            # Prior tool answers can contain registered names, distances or stay times.
+            # Keep only user-authored turns in the model-facing conversation.
+            body=body.model_copy(update={'history':[t for t in body.history if t.role=='user']})
             if body.text:
                 result=await answer_chat(body,self.linked(body),self.gemini)
                 result.intent=intent;result.ai_used=result.mode=='evidence';result.tools_used=['경보·안전수칙 근거 확인'];return result
@@ -209,11 +218,33 @@ class AppAssistant:
                 if not review.supported or re.search(r'안전합니다|안전해요|안전한 경로|안전이 보장|대피.*필요.*없',draft.answer):return None
                 return draft.answer
             explanation=await asyncio.wait_for(generate(),timeout=25)
-            if explanation:result.answer=explanation;result.ai_used=True
+            if explanation:result.answer+='\n\n'+explanation;result.ai_used=True
         except (HTTPException,asyncio.TimeoutError,ValueError,TypeError,AttributeError):pass
         return result
 
     async def lookup(self,intent,body):
+        chosen=None
+        if body.place_selection:
+            body=body.model_copy(update={'location':body.place_selection,'weather_scope':None})
+        else:
+            named=await self.places.extract(body.question)
+            if named:
+                candidates=await self.places.search(named)
+                if len(candidates)!=1:
+                    result=self.reply('말씀하신 장소가 여러 곳 검색됐어요. 기준으로 삼을 장소를 골라 주세요.' if candidates else '말씀하신 장소를 지도 자료에서 찾지 못했어요. 도시·역 이름을 더 자세히 알려주세요.',intent,place_candidates=candidates)
+                    result.mode='clarify';return result
+                chosen=candidates[0]
+                body=body.model_copy(update={'location':chosen.location,'weather_scope':None})
+        result=await self.lookup_at(intent,body)
+        if body.location:
+            result.query_location=body.location
+            label=chosen.label if chosen else body.location.name
+            note=('도시·지역 대표 지점 기준이며 내 실제 위치와 다를 수 있어요. 정확한 주변 검색은 위치를 지정해 주세요.' if body.location.approximate else '검색한 장소 기준이며 내 현재 GPS 위치가 아니에요.' if chosen else '대화에서 선택한 위치 기준')
+            result.scope_note=label+' · '+note+(' · '+result.scope_note if result.scope_note else '')
+        if chosen:result.tools_used.insert(0,'질문의 장소 검색')
+        return result
+
+    async def lookup_at(self,intent,body):
         if intent=='alerts' and not (body.location or body.weather_scope) or intent!='alerts' and not body.location:
             result=self.reply('어느 위치를 기준으로 확인할까요? 현재 위치를 사용하거나 지도에서 숙소·거주지를 등록해 주세요.'+(' 경보는 알림에 저장한 지역을 선택해도 조회할 수 있어요.' if intent=='alerts' else ''),intent,needs_location=True)
             result.mode='clarify';return result
@@ -250,23 +281,61 @@ class AppAssistant:
         for shelter in rows[:3]:
             path='/shelters?'+urlencode({'view':'route','from':f'{body.location.lat},{body.location.lon}','to':f'{shelter.lat},{shelter.lon}','name':shelter.name,'country':actual})
             items.append(ChatItem(kind='shelter',title=shelter.name,detail=shelter.address,status=shelter.status_label,source=shelter.source,path=path,distance_m=shelter.distance_m))
-        answer='반경 10km의 조회 목록에서 직선거리 순으로 가까운 시설을 찾았어요.' if rows else '반경 10km의 공식 조회 목록에서 연결할 시설을 찾지 못했어요. 시설이 없다는 뜻은 아니에요.'
-        result=self.reply(answer,intent,items=items,scope_note='등록한 위치 기준 · 직선거리 순 · 현장 개방·입소 가능·이동 안전은 별도 확인',
+        answer=(f'{body.location.name} 기준 조회 목록에서 가장 가까운 시설은 {rows[0].name}이며, 직선거리 약 {round(rows[0].distance_m)}m예요. 가까운 순서로 최대 3곳을 보여드려요.' if rows else '반경 10km의 공식 조회 목록에서 연결할 시설을 찾지 못했어요. 시설이 없다는 뜻은 아니에요.')
+        result=self.reply(answer,intent,items=items,scope_note='직선거리 순 · 개방·입소 가능·이동 안전은 별도 확인',
             tools_used=['공식 대피시설 조회','직선거리 정렬'],actions=[action('시설 지도에서 확인','/shelters?'+urlencode(base))])
         result.mode='live';result.checked_at=data.checked_at
         result.sources=[ChatSource(title='공식 대피시설 자료',quote=data.note,url=data.source)]
         if data.truncated or data.warnings:result.answer+=' 일부 자료가 누락됐거나 추가 확인이 필요해 “전체에서 가장 가까운 곳”이라고 단정할 수 없어요.'
-        return await self.explain_lookup(result,f'대피시설 조회가 성공했습니다. 연결 가능한 조회 시설 {len(rows)}곳입니다. 목록은 직선거리 순입니다. 실제 개방, 현장 입소 가능 여부, 재난별 적합성 및 이동 안전은 별도 확인이 필요합니다. 앱에서 일반 경로 화면에 연결할 수 있지만 안전한 대피 경로를 보장하지 않습니다.')
+        return result
 
     async def disasters(self,body):
-        if requested_country(body.question)=='US':return self.reply('이 앱의 지진·쓰나미 전용 연동은 현재 일본 자료예요. 미국의 지진·쓰나미 전체를 조회했다고 안내할 수는 없어요.', 'japan_disasters',actions=[action('현재 지원 지도','/japan-disasters')])
+        if requested_country(body.question)=='US':return self.reply('이 앱의 지진·쓰나미 전용 연동은 현재 일본 자료예요. 미국의 전체 정보를 조회한 것은 아니에요.','japan_disasters')
+        from pathlib import Path
+        from datetime import timedelta
+        labels=json.loads((Path(__file__).resolve().parents[2]/'data/japan-place-labels.json').read_text())
+        def place(value):
+            original=value or '지역 미확인';text=original
+            for ja,ko in sorted(labels.items(),key=lambda p:-len(p[0])):text=text.replace(ja,ko)
+            text=re.sub(r'\s+',' ',text.replace('沖',' 앞바다')).strip()
+            return text+' ('+original+')' if text!=original else original
+        def when(value):
+            parsed=timestamp(value)
+            return parsed.astimezone(timezone(timedelta(hours=9))).strftime('%m월 %d일 %H:%M')+' 일본 시간' if parsed else '발생 시각 미확인'
+        def level(value):return str(value).replace('-',' 약').replace('+',' 강') if value else '미확인'
         tsunami=bool(re.search(r'쓰나미|津波|tsunami',body.question,re.I))
         if tsunami:
             data=await self.seismic.tsunami();bulletin=data.get('bulletin') or {}
-            result=self.reply('일본 전국 해안별 쓰나미 발표를 조회했어요. 대상 해안과 현재 유효 여부를 지도에서 확인하세요.' if bulletin.get('current') else '현재 표시할 유효한 일본 쓰나미 발표가 없어요. 내 위치의 안전을 보장하는 뜻은 아니에요.','japan_disasters',
-                actions=[action('쓰나미 해안별 정보','/japan-disasters?tab=tsunami')],tools_used=['일본 공식 쓰나미 발표 조회'],scope_note='일본 전국 해안 발표 · 내 위치 해당 여부 자동 판정 아님')
+            active=[r for r in bulletin.get('regions',[]) if r.get('level') in ('major','warning','advisory','forecast','unknown')] if bulletin.get('current') else []
+            order={'major':0,'warning':1,'advisory':2,'unknown':3,'forecast':4}
+            active.sort(key=lambda r:order[r['level']])
+            names={'major':'대쓰나미 경보','warning':'쓰나미 경보','advisory':'쓰나미 주의보','forecast':'해수면 변동 예보','unknown':'단계 미확인'}
+            items=[ChatItem(kind='info',title=place(r.get('name')),detail=names[r['level']]+' · 예상 높이 '+str(r.get('height_description') or r.get('height') or '미확인')+' · 도달 '+(when(r['arrival_at']) if r.get('arrival_at') else str(r.get('arrival_condition') or '시각 미확인')),status=names[r['level']],source=bulletin.get('source_url') or 'https://www.jma.go.jp/bosai/map.html?contents=tsunami',path='/japan-disasters?tab=tsunami') for r in active[:5]]
+            answer=('현재 일본 쓰나미 발표에서 '+', '.join(place(r.get('name'))+' '+names[r['level']] for r in active[:3])+'를 확인했어요. 발표 '+when(bulletin.get('issued_at'))+'.' if active else '현재 공식 조회에서 표시할 유효한 일본 쓰나미 발표가 없어요. 내 위치의 안전을 보장하는 뜻은 아니에요.')
+            result=self.reply(answer,'japan_disasters',items=items,actions=[action('쓰나미 해안별 정보','/japan-disasters?tab=tsunami')],tools_used=['일본 공식 쓰나미 발표 조회'],scope_note='일본 전국 해안 발표 · 내 위치 해당 여부 자동 판정 아님')
         else:
-            data=await self.seismic.earthquakes();events=data.get('events',[])
-            result=self.reply(f'일본 기상청의 최근 지진 관측 목록 {len(events)}건을 조회했어요. 긴급지진속보가 아닌 발생 후 관측 정보예요.','japan_disasters',
-                actions=[action('진앙·관측 진도 지도','/japan-disasters?tab=earthquake')],tools_used=['일본 공식 지진 관측 조회'],scope_note='일본 전국의 최근 관측 · 현재 위치의 예상 진도 아님')
+            data=await self.seismic.earthquakes()
+            events=[e for e in data.get('events',[]) if not e.get('cancelled') and timestamp(e.get('occurred_at')) and timestamp(e['occurred_at'])<=datetime.now(timezone.utc)+timedelta(minutes=5)]
+            events.sort(key=lambda e:timestamp(e['occurred_at']),reverse=True)
+            if not events:
+                result=self.reply('이번 공식 조회에서 발생 시각이 확인되는 최근 일본 지진 관측을 찾지 못했어요. 방금 느낀 흔들림의 원인은 확인할 수 없으므로 현지 최신 발표를 확인해 주세요.','japan_disasters',actions=[action('일본 지진 지도','/japan-disasters?tab=earthquake')])
+            else:
+                newest=events[0];origin=body.location if body.location and body.location.country=='JP' else None
+                items=[]
+                for e in events[:3]:
+                    mag='M'+str(e['magnitude']) if e.get('magnitude') is not None else '규모 미확인'
+                    detail=when(e['occurred_at'])+' · '+mag+' · 최대 관측 진도 '+level(e.get('max_intensity'))
+                    epicenter=e.get('epicenter')
+                    if epicenter and epicenter.get('depth_km') is not None:detail+=' · 깊이 '+str(epicenter['depth_km'])+'km'
+                    if epicenter and origin:
+                        from types import SimpleNamespace
+                        point=SimpleNamespace(**epicenter);detail+=f' · 기준 위치에서 진앙까지 약 {distance(origin,point)/1000:.0f}km'
+                    path='/japan-disasters?'+urlencode({'tab':'earthquake','event':e['id']})
+                    items.append(ChatItem(kind='info',title=place(e.get('place')),detail=detail,status='발생 후 공식 관측',source='https://www.jma.go.jp/bosai/quake/data/'+e['id'],path=path))
+                answer='가장 최근 공식 관측은 '+place(newest.get('place'))+'에서 발생한 지진이에요. '+items[0].detail+'.'
+                if re.search(r'지금|방금|났',body.question):answer+=' 방금 느낀 흔들림과 같은 사건인지는 이 목록만으로 확정할 수 없어요.'
+                result=self.reply(answer,'japan_disasters',items=items,actions=[action('해당 지진의 진앙·진도 지도',items[0].path)],tools_used=['일본 공식 지진 관측 조회'],scope_note='최대 관측 진도는 내 위치의 진도가 아니에요. 긴급지진속보가 아닌 발생 후 관측 자료입니다.')
+                result.sources=[ChatSource(title='JMA 지진 관측 원자료',quote=items[0].title+' · '+items[0].detail,url=items[0].source)]
+        checked=timestamp(data['checked_at'])
+        if checked is None or not -30<=(datetime.now(timezone.utc)-checked).total_seconds()<=180:raise ValueError('Stale disaster lookup')
         result.mode='live';result.checked_at=data['checked_at'];return result

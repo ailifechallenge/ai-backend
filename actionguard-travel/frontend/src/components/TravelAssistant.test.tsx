@@ -103,3 +103,26 @@ it('shows actual facility cards and links from a pre-alert tool response',async(
  expect(screen.getByText('지도·일반 경로 보기')).toHaveAttribute('href','/shelters?country=JP');
  expect(screen.getByText('알림 설정 →')).toHaveAttribute('href','/notifications');
 });
+
+it('uses the last resolved place for a follow-up without overwriting the shared place',async()=>{
+ const place={name:'도쿄역',country:'JP',lat:35.6808,lon:139.7669};
+ vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({answer:'도쿄역 주변 조회',sources:[],checked_at:new Date().toISOString(),mode:'live',intent:'shelters',query_location:place}))));
+ render(<Subject text="" alert={null} country="unknown"/>);
+ fireEvent.change(screen.getByLabelText('AI 도우미에게 질문'),{target:{value:'도쿄역 주변 대피소 알려줘'}});fireEvent.click(screen.getByText('질문 보내기'));
+ await screen.findByText('도쿄역 주변 조회');
+ fireEvent.change(screen.getByLabelText('AI 도우미에게 질문'),{target:{value:'그럼 지진용으로 찾아줘'}});fireEvent.click(screen.getByText('질문 보내기'));
+ await waitFor(()=>expect(vi.mocked(fetch)).toHaveBeenCalledTimes(2));
+ expect(JSON.parse(String(vi.mocked(fetch).mock.calls[1][1]?.body)).location).toEqual(place);
+ expect(screen.getByText('조회 위치를 아직 등록하지 않았어요')).toBeInTheDocument();
+});
+it('lets users select an ambiguous place and submits the same question with that choice',async()=>{
+ const place={name:'중앙역',country:'JP',lat:35.68,lon:139.76};
+ vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({answer:'검색 장소를 선택하세요.',sources:[],checked_at:new Date().toISOString(),mode:'clarify',intent:'shelters',place_candidates:[{location:place,label:'중앙역 A · 도쿄',approximate:false,source:'https://maps.gsi.go.jp/'}]}))));
+ render(<Subject text="" alert={null} country="unknown"/>);
+ fireEvent.change(screen.getByLabelText('AI 도우미에게 질문'),{target:{value:'중앙역 주변 대피소'}});fireEvent.click(screen.getByText('질문 보내기'));
+ await screen.findByText('중앙역 A · 도쿄');
+ fireEvent.click(screen.getByRole('button',{name:/중앙역 A · 도쿄/}));
+ await waitFor(()=>expect(vi.mocked(fetch)).toHaveBeenCalledTimes(2));
+ const payload=JSON.parse(String(vi.mocked(fetch).mock.calls[1][1]?.body));
+ expect(payload.place_selection).toEqual(place);expect(payload.question).toBe('중앙역 주변 대피소');
+});

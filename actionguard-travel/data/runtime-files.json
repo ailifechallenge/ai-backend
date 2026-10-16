@@ -1,0 +1,21 @@
+[
+  "data/runtime-files.json",
+  "backend/main.py",
+  "backend/core/app_assistant.py",
+  "backend/adapters/local_information.py",
+  "backend/adapters/assistant_places.py",
+  "data/japan-place-labels.json",
+  "frontend/src/components/TravelAssistant.tsx",
+  "frontend/src/components/TravelAssistant.css",
+  "backend/local_runtime.py",
+  "frontend/vite.config.ts",
+  "frontend/src/App.tsx",
+  "backend/core/urgency.py",
+  "backend/core/urgency_ai.py",
+  "backend/models/contracts.py",
+  "frontend/src/services/api.ts",
+  "frontend/src/types/index.ts",
+  "frontend/src/pages/Flow.tsx",
+  "frontend/src/components/UrgencyCard.tsx",
+  "frontend/src/components/UrgencyCard.css"
+]
