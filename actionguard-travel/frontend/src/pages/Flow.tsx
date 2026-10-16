@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import {US_STATES,stateLabel,japanRegionLabel,japaneseAreaLabel,type RegionChoice} from "../features/regions/labels";
 import "./JapanDisasters.css";
 import { useRef, useState, useEffect, type FormEvent } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -83,7 +84,7 @@ export default function Flow() {
   });
   const japanAreas = useQuery({
     queryKey: ["japan-areas"],
-    queryFn: () => api<{ areas: { code: string; name: string; en_name: string }[] }>("japan/areas"),
+    queryFn: () => api<{ areas: RegionChoice[] }>("japan/areas"),
     enabled: sourceTab === "nws" && country === "JP",
     retry: false,
     staleTime: 3600000,
@@ -231,7 +232,7 @@ export default function Flow() {
     );
   }
   const visibleAlerts = (result.data?.alerts ?? []).filter((alert) =>
-    `${alert.event} ${alert.headline} ${alert.area}`
+    `${alert.event} ${alert.headline} ${alert.area} ${country==="JP"?japaneseAreaLabel(alert.area):""}`
       .toLocaleLowerCase()
       .includes(alertFilter.trim().toLocaleLowerCase()),
   );
@@ -342,7 +343,7 @@ export default function Flow() {
                   일본 기상청 관할 지역
                   <select value={office} onChange={(e) => setOffice(e.target.value)} required>
                     {(japanAreas.data?.areas ?? []).map((a) => (
-                      <option value={a.code} key={a.code}>{a.name}{a.en_name ? ` · ${a.en_name}` : ""}</option>
+                      <option value={a.code} key={a.code}>{japanRegionLabel(a)}</option>
                     ))}
                   </select>
                 </label>
@@ -361,14 +362,8 @@ export default function Flow() {
               </label>
               {regionMode === "area" ? (
                 <label>
-                  주 코드
-                  <input
-                    value={area}
-                    maxLength={2}
-                    required
-                    placeholder="CA, NY, FL"
-                    onChange={(e) => setArea(e.target.value.toUpperCase())}
-                  />
+                  미국 주·특별구·영토
+                  <select value={area} required onChange={e=>setArea(e.target.value)}>{US_STATES.map(s=><option key={s.code} value={s.code}>{stateLabel(s.code)}</option>)}</select>
                 </label>
               ) : (
                 <>
@@ -445,7 +440,7 @@ export default function Flow() {
                       <span className="alert-option-main">
                         <strong>{a.event}</strong>
                         <small>
-                          {a.area}
+                          {country==='JP'?japaneseAreaLabel(a.area):a.area}
                         </small>
                       </span>
                       <span className={`severity ${a.severity}`}>
@@ -474,7 +469,7 @@ export default function Flow() {
             <div>
               <strong>{ws.alert.headline}</strong>
               <p>
-                {ws.alert.sender} · {ws.alert.severity} · {ws.alert.area}
+                {ws.alert.sender} · {ws.alert.severity} · {ws.alert.id.startsWith('jma:')?japaneseAreaLabel(ws.alert.area):ws.alert.area}
               </p>
               <p className="muted">
                 발효 <Time value={ws.alert.effective} /> · 메시지 만료{" "}

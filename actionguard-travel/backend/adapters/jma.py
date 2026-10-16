@@ -6,6 +6,7 @@ import httpx
 from fastapi import HTTPException
 
 from backend.core.cache import Cache
+from backend.core.region_labels import japanese_region
 from backend.models.contracts import Alert, Alerts
 
 BASE = "https://www.jma.go.jp/bosai"
@@ -160,7 +161,7 @@ class JMA:
                 data = await self._get(f"{BASE}/common/const/area.json")
                 offices = data.get("offices", {})
                 rows = [
-                    {"code": code, "name": item.get("name", code), "en_name": item.get("enName", "")}
+                    {"code": code, "name": item.get("name", code), **japanese_region(code,item.get("name",code),item.get("enName",""))}
                     for code, item in offices.items()
                 ]
                 rows.sort(key=lambda row: int(row["code"]))

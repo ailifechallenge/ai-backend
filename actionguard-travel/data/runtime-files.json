@@ -17,5 +17,14 @@
   "frontend/src/types/index.ts",
   "frontend/src/pages/Flow.tsx",
   "frontend/src/components/UrgencyCard.tsx",
-  "frontend/src/components/UrgencyCard.css"
+  "frontend/src/components/UrgencyCard.css",
+  "data/japan-regions-ko.json",
+  "data/us-states-ko.json",
+  "backend/core/region_labels.py",
+  "backend/adapters/jma.py",
+  "backend/push/weather.py",
+  "frontend/src/features/regions/labels.ts",
+  "frontend/src/features/mobile/NotificationPreferences.tsx",
+  "frontend/src/pages/WeatherAlert.tsx",
+  "data/japan-region-display.json"
 ]

@@ -1,0 +1,22 @@
+{
+  "office": {
+    "code": "130000",
+    "name": "東京都",
+    "ko_name": "도쿄도",
+    "en_name": "Tokyo",
+    "display_name": "도쿄도 (東京都)",
+    "label_method": "curated"
+  },
+  "municipality": {
+    "code": "1310100",
+    "name": "千代田区",
+    "type": "city",
+    "ko_name": "지요다구",
+    "en_name": "Chiyoda City",
+    "display_name": "지요다구 (千代田区)",
+    "label_method": "curated"
+  },
+  "office_count": 58,
+  "tokyo_area_count": 62,
+  "runtime_match": true
+}

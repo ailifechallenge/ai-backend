@@ -11,6 +11,7 @@ from backend.adapters.jma import JMA, KINDS, parse as parse_jma
 from backend.adapters.nws import parse as parse_nws
 from backend.adapters.seismic import timestamp
 from backend.core.cache import Cache
+from backend.core.region_labels import japanese_region
 
 HAZARDS = {'rain':'호우', 'flood':'홍수', 'wind':'강풍', 'storm':'뇌우·토네이도',
            'snow':'눈·눈보라', 'heat':'폭염', 'cold':'한파·서리', 'coastal':'파랑·해일',
@@ -72,7 +73,7 @@ class Weather:
                 level15=areas.get('class15s',{}).get(parent,{})
                 level10=areas.get('class10s',{}).get(level15.get('parent'),{})
                 return level10.get('parent')
-            rows=[{'code':code,'name':p['name'],'type':'city'} for code,p in areas.get('class20s',{}).items() if office(p['parent'])==region]
+            rows=[{'code':code,'name':p['name'],'type':'city',**japanese_region(code,p['name'],p.get('enName',''))} for code,p in areas.get('class20s',{}).items() if office(p['parent'])==region]
         if not rows:raise ValueError('No selectable regions')
         return self.cache.put(key,{'areas':sorted(rows,key=lambda x:x['name'])})
     async def snapshot(self,scope):

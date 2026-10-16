@@ -93,3 +93,7 @@ Windows에서는 Python 경로를 `.\.venv\Scripts\python.exe`로 바꾸세요. 
 계정 정보·실제 재난문자의 개인정보·기기 토큰·DB·서명 파일은 공유하지 않습니다. 공식 기관의 최신 지시가 우선이며 ‘불일치 미탐지’는 안전 인증이 아닙니다. 지난 단계의 구현 기록은 [README 이력](README_HISTORY.md)에 보존했습니다. 과거 기록보다 위 최신 범위를 우선 참고하세요.
 
 앱 전체 AI 도우미: 경보 입력 전에도 번역·경보 조회·주변 시설·일정·알림 기능을 대화로 연결합니다. [기능과 개인정보·자료 범위](docs/APP_ASSISTANT.md)를 확인하세요.
+
+프론트엔드 팀 전달: [현재 기능·화면·API 인수인계](docs/FRONTEND_HANDOFF.md) · [API 스키마](docs/FRONTEND_API_SCHEMA.json).
+
+팀 전달용 빠른 목록: [프론트엔드 기능 요약](docs/FRONTEND_FEATURES.md). 일본·미국 [지역 이름 병기 안내](docs/REGION_LABELS.md).

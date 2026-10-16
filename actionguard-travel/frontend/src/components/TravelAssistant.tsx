@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import JourneyPlace from './JourneyPlace';
+import {japaneseAreaLabel,savedRegionLabel} from '../features/regions/labels';
 import {useWorkspace} from '../hooks/workspace';
 import {Link,useLocation,useNavigate} from 'react-router-dom';
 import UrgencyCard from './UrgencyCard';
@@ -94,7 +95,7 @@ export default function TravelAssistant({ text, alert, country }: { text: string
     {page.pathname==='/itinerary'&&<JourneyPlace/>}
     <Panel className="chat-panel">
       <div className="assistant-heading"><span>ActionGuard AI</span><h2 id="travel-chat">앱에서 필요한 일,<br/>편하게 물어보세요.</h2><p>문자 해석부터 경보·대피시설·길찾기·일정·알림까지 도와드려요.</p></div>
-      <div className="assistant-context"><strong>{ws.place?'조회 위치: '+ws.place.name:'조회 위치를 아직 등록하지 않았어요'}</strong><div><button type="button" disabled={busy} onClick={useCurrentLocation}>현재 위치 사용</button><button type="button" disabled={busy} onClick={()=>setShowLocation(v=>!v)}>위치 등록·변경</button></div>{!ws.place&&!text&&<label>일반 안전 안내 국가<select value={assistantCountry} onChange={e=>setAssistantCountry(e.target.value as typeof country)} disabled={busy}><option value="unknown">선택해 주세요</option><option value="US">미국</option><option value="JP">일본</option></select></label>}{!!regions.length&&<label>기상경보 조회 지역<select value={weatherScope} disabled={busy} onChange={e=>setWeatherScope(e.target.value)}><option value="">등록한 좌표로 조회</option>{regions.map(r=><option key={r.scope} value={r.scope}>{r.name}</option>)}</select></label>}</div>
+      <div className="assistant-context"><strong>{ws.place?'조회 위치: '+ws.place.name:'조회 위치를 아직 등록하지 않았어요'}</strong><div><button type="button" disabled={busy} onClick={useCurrentLocation}>현재 위치 사용</button><button type="button" disabled={busy} onClick={()=>setShowLocation(v=>!v)}>위치 등록·변경</button></div>{!ws.place&&!text&&<label>일반 안전 안내 국가<select value={assistantCountry} onChange={e=>setAssistantCountry(e.target.value as typeof country)} disabled={busy}><option value="unknown">선택해 주세요</option><option value="US">미국</option><option value="JP">일본</option></select></label>}{!!regions.length&&<label>기상경보 조회 지역<select value={weatherScope} disabled={busy} onChange={e=>setWeatherScope(e.target.value)}><option value="">등록한 좌표로 조회</option>{regions.map(r=><option key={r.scope} value={r.scope}>{savedRegionLabel(r)}</option>)}</select></label>}</div>
       {showLocation&&<JourneyPlace/>}
       {ws.place&&<p>공통 위치: {ws.place.name} · {stay?'체류 일정 연결됨':'시간 비교에는 체류 일정 추가가 필요해요'} <Link to={`/shelters?country=${ws.place.country}`}>주변 시설 보기</Link></p>}
       <p className="muted">경보 입력 전에도 사용할 수 있어요. 필요한 위치나 원문이 없으면 먼저 확인할게요.</p>
@@ -119,7 +120,7 @@ export default function TravelAssistant({ text, alert, country }: { text: string
         <label>위도<input type="number" min={-90} max={90} step="any" value={lat} onChange={e=>{setLat(e.target.value);setMunicipality('');}} placeholder="예: 34.05"/></label>
         <label>경도<input type="number" min={-180} max={180} step="any" value={lon} onChange={e=>{setLon(e.target.value);setMunicipality('');}} placeholder="예: -118.24"/></label>
         <button type="button" onClick={locate}>현재 위치로 채우기</button>
-        {placeCountry==='JP'&&alert?.id.startsWith('jma:')&&<label>또는 해당 시정촌 선택<select value={municipality} onChange={e=>{setMunicipality(e.target.value);setLat('');setLon('');}}><option value="">직접 확인한 지역을 선택하세요</option>{alert.area.split('、').map(a=><option key={a}>{a}</option>)}</select></label>}
+        {placeCountry==='JP'&&alert?.id.startsWith('jma:')&&<label>또는 해당 시정촌 선택<select value={municipality} onChange={e=>{setMunicipality(e.target.value);setLat('');setLon('');}}><option value="">직접 확인한 지역을 선택하세요</option>{alert.area.split('、').map(a=><option key={a} value={a}>{japaneseAreaLabel(a)}</option>)}</select></label>}
         <label>장소의 현지 시간대<select value={zone} onChange={e=>setZone(e.target.value)}>{zones.map(z=><option key={z}>{z}</option>)}</select></label>
         </div></details>
         <label>체류 시작<input type="datetime-local" value={start} onChange={e=>setStart(e.target.value)}/></label>

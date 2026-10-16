@@ -1,3 +1,4 @@
+import {US_STATES,stateLabel} from "../features/regions/labels";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
@@ -79,14 +80,8 @@ export default function Dashboard() {
           </label>
           {mode === "area" ? (
             <label>
-              주 코드
-              <input
-                value={area}
-                maxLength={2}
-                required
-                placeholder="CA, NY, FL…"
-                onChange={(e) => setArea(e.target.value.toUpperCase())}
-              />
+              미국 주·특별구·영토
+              <select value={area} required onChange={e=>setArea(e.target.value)}>{US_STATES.map(s=><option key={s.code} value={s.code}>{stateLabel(s.code)}</option>)}</select>
             </label>
           ) : (
             <>

@@ -56,7 +56,7 @@ describe("unified travel alert workflow", () => {
     expect(screen.getByRole("heading", { level: 1 })).toHaveTextContent("경보를 이해하고");
     fireEvent.click(screen.getByRole("tab", { name: "공식 경보 찾기" }));
     fireEvent.change(screen.getByLabelText("여행 국가"), { target: { value: "JP" } });
-    expect(await screen.findByRole("option", { name: "東京都 · Tokyo" })).toBeInTheDocument();
+    expect(await screen.findByRole("option", { name: "도쿄도 (東京都)" })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "경보 찾기" }));
     expect(await screen.findByRole("button", { name: /暴風警報/ })).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /暴風警報/ }));
@@ -93,7 +93,7 @@ it("requests the same area again when the user searches again", async () => {
   mount();
   fireEvent.click(screen.getByRole("tab", { name: "공식 경보 찾기" }));
   fireEvent.change(screen.getByLabelText("여행 국가"), { target: { value: "JP" } });
-  await screen.findByRole("option", { name: "東京都 · Tokyo" });
+  await screen.findByRole("option", { name: "도쿄도 (東京都)" });
   fireEvent.click(screen.getByRole("button", { name: "경보 찾기" }));
   await screen.findByRole("button", { name: /暴風警報/ });
   fireEvent.click(screen.getByRole("button", { name: "경보 찾기" }));
@@ -106,7 +106,7 @@ it("preserves the exact selected official text including trailing whitespace", a
   mount();
   fireEvent.click(screen.getByRole("tab", { name: "공식 경보 찾기" }));
   fireEvent.change(screen.getByLabelText("여행 국가"), { target: { value: "JP" } });
-  await screen.findByRole("option", { name: "東京都 · Tokyo" });
+  await screen.findByRole("option", { name: "도쿄도 (東京都)" });
   fireEvent.click(screen.getByRole("button", { name: "경보 찾기" }));
   fireEvent.click(await screen.findByRole("button", { name: /暴風警報/ }));
   fireEvent.click(screen.getByRole("button", { name: "문자 이해하기" }));
