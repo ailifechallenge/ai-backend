@@ -1,0 +1,282 @@
+[
+  {
+    "code": "AL",
+    "en_name": "Alabama",
+    "ko_name": "앨라배마주"
+  },
+  {
+    "code": "AK",
+    "en_name": "Alaska",
+    "ko_name": "알래스카주"
+  },
+  {
+    "code": "AZ",
+    "en_name": "Arizona",
+    "ko_name": "애리조나주"
+  },
+  {
+    "code": "AR",
+    "en_name": "Arkansas",
+    "ko_name": "아칸소주"
+  },
+  {
+    "code": "CA",
+    "en_name": "California",
+    "ko_name": "캘리포니아주"
+  },
+  {
+    "code": "CO",
+    "en_name": "Colorado",
+    "ko_name": "콜로라도주"
+  },
+  {
+    "code": "CT",
+    "en_name": "Connecticut",
+    "ko_name": "코네티컷주"
+  },
+  {
+    "code": "DE",
+    "en_name": "Delaware",
+    "ko_name": "델라웨어주"
+  },
+  {
+    "code": "FL",
+    "en_name": "Florida",
+    "ko_name": "플로리다주"
+  },
+  {
+    "code": "GA",
+    "en_name": "Georgia",
+    "ko_name": "조지아주"
+  },
+  {
+    "code": "HI",
+    "en_name": "Hawaii",
+    "ko_name": "하와이주"
+  },
+  {
+    "code": "ID",
+    "en_name": "Idaho",
+    "ko_name": "아이다호주"
+  },
+  {
+    "code": "IL",
+    "en_name": "Illinois",
+    "ko_name": "일리노이주"
+  },
+  {
+    "code": "IN",
+    "en_name": "Indiana",
+    "ko_name": "인디애나주"
+  },
+  {
+    "code": "IA",
+    "en_name": "Iowa",
+    "ko_name": "아이오와주"
+  },
+  {
+    "code": "KS",
+    "en_name": "Kansas",
+    "ko_name": "캔자스주"
+  },
+  {
+    "code": "KY",
+    "en_name": "Kentucky",
+    "ko_name": "켄터키주"
+  },
+  {
+    "code": "LA",
+    "en_name": "Louisiana",
+    "ko_name": "루이지애나주"
+  },
+  {
+    "code": "ME",
+    "en_name": "Maine",
+    "ko_name": "메인주"
+  },
+  {
+    "code": "MD",
+    "en_name": "Maryland",
+    "ko_name": "메릴랜드주"
+  },
+  {
+    "code": "MA",
+    "en_name": "Massachusetts",
+    "ko_name": "매사추세츠주"
+  },
+  {
+    "code": "MI",
+    "en_name": "Michigan",
+    "ko_name": "미시간주"
+  },
+  {
+    "code": "MN",
+    "en_name": "Minnesota",
+    "ko_name": "미네소타주"
+  },
+  {
+    "code": "MS",
+    "en_name": "Mississippi",
+    "ko_name": "미시시피주"
+  },
+  {
+    "code": "MO",
+    "en_name": "Missouri",
+    "ko_name": "미주리주"
+  },
+  {
+    "code": "MT",
+    "en_name": "Montana",
+    "ko_name": "몬태나주"
+  },
+  {
+    "code": "NE",
+    "en_name": "Nebraska",
+    "ko_name": "네브래스카주"
+  },
+  {
+    "code": "NV",
+    "en_name": "Nevada",
+    "ko_name": "네바다주"
+  },
+  {
+    "code": "NH",
+    "en_name": "New Hampshire",
+    "ko_name": "뉴햄프셔주"
+  },
+  {
+    "code": "NJ",
+    "en_name": "New Jersey",
+    "ko_name": "뉴저지주"
+  },
+  {
+    "code": "NM",
+    "en_name": "New Mexico",
+    "ko_name": "뉴멕시코주"
+  },
+  {
+    "code": "NY",
+    "en_name": "New York",
+    "ko_name": "뉴욕주"
+  },
+  {
+    "code": "NC",
+    "en_name": "North Carolina",
+    "ko_name": "노스캐롤라이나주"
+  },
+  {
+    "code": "ND",
+    "en_name": "North Dakota",
+    "ko_name": "노스다코타주"
+  },
+  {
+    "code": "OH",
+    "en_name": "Ohio",
+    "ko_name": "오하이오주"
+  },
+  {
+    "code": "OK",
+    "en_name": "Oklahoma",
+    "ko_name": "오클라호마주"
+  },
+  {
+    "code": "OR",
+    "en_name": "Oregon",
+    "ko_name": "오리건주"
+  },
+  {
+    "code": "PA",
+    "en_name": "Pennsylvania",
+    "ko_name": "펜실베이니아주"
+  },
+  {
+    "code": "RI",
+    "en_name": "Rhode Island",
+    "ko_name": "로드아일랜드주"
+  },
+  {
+    "code": "SC",
+    "en_name": "South Carolina",
+    "ko_name": "사우스캐롤라이나주"
+  },
+  {
+    "code": "SD",
+    "en_name": "South Dakota",
+    "ko_name": "사우스다코타주"
+  },
+  {
+    "code": "TN",
+    "en_name": "Tennessee",
+    "ko_name": "테네시주"
+  },
+  {
+    "code": "TX",
+    "en_name": "Texas",
+    "ko_name": "텍사스주"
+  },
+  {
+    "code": "UT",
+    "en_name": "Utah",
+    "ko_name": "유타주"
+  },
+  {
+    "code": "VT",
+    "en_name": "Vermont",
+    "ko_name": "버몬트주"
+  },
+  {
+    "code": "VA",
+    "en_name": "Virginia",
+    "ko_name": "버지니아주"
+  },
+  {
+    "code": "WA",
+    "en_name": "Washington",
+    "ko_name": "워싱턴주"
+  },
+  {
+    "code": "WV",
+    "en_name": "West Virginia",
+    "ko_name": "웨스트버지니아주"
+  },
+  {
+    "code": "WI",
+    "en_name": "Wisconsin",
+    "ko_name": "위스콘신주"
+  },
+  {
+    "code": "WY",
+    "en_name": "Wyoming",
+    "ko_name": "와이오밍주"
+  },
+  {
+    "code": "DC",
+    "en_name": "District of Columbia",
+    "ko_name": "워싱턴 D.C. 특별구"
+  },
+  {
+    "code": "AS",
+    "en_name": "American Samoa",
+    "ko_name": "아메리칸사모아"
+  },
+  {
+    "code": "GU",
+    "en_name": "Guam",
+    "ko_name": "괌"
+  },
+  {
+    "code": "MP",
+    "en_name": "Northern Mariana Islands",
+    "ko_name": "북마리아나제도"
+  },
+  {
+    "code": "PR",
+    "en_name": "Puerto Rico",
+    "ko_name": "푸에르토리코"
+  },
+  {
+    "code": "VI",
+    "en_name": "U.S. Virgin Islands",
+    "ko_name": "미국령 버진아일랜드"
+  }
+]

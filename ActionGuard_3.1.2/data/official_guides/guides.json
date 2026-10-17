@@ -1,0 +1,76 @@
+[
+  {
+    "tokens": [
+      "flood"
+    ],
+    "title": "홍수",
+    "text": "침수된 도로로 운전하거나 걸어 들어가지 마세요.",
+    "url": "https://www.weather.gov/safety/flood-during",
+    "condition": "홍수 또는 침수 위험이 있는 곳"
+  },
+  {
+    "tokens": [
+      "tornado"
+    ],
+    "title": "토네이도",
+    "text": "튼튼한 건물의 지하실이나 창문에서 떨어진 내부 공간으로 이동하세요.",
+    "url": "https://www.weather.gov/safety/tornado-during",
+    "condition": "토네이도 발생 또는 경보 시"
+  },
+  {
+    "tokens": [
+      "heat"
+    ],
+    "title": "폭염",
+    "text": "더위 노출을 줄이고 시원한 장소에서 쉬며 수분을 보충하세요.",
+    "url": "https://www.weather.gov/safety/heat-during",
+    "condition": "폭염에 노출되는 경우"
+  },
+  {
+    "tokens": [
+      "winter",
+      "blizzard",
+      "snow",
+      "ice storm"
+    ],
+    "title": "겨울 폭풍",
+    "text": "겨울 폭풍 중 운전이 꼭 필요하다면 속도를 줄이세요. 젖어 보이는 도로도 미끄러울 수 있습니다.",
+    "url": "https://www.weather.gov/safety/winter-during",
+    "condition": "겨울 폭풍 중 운전이 불가피한 경우"
+  },
+  {
+    "tokens": [
+      "hurricane",
+      "tropical storm"
+    ],
+    "title": "허리케인",
+    "text": "당국이 대피를 지시하면 즉시 따르고 최신 공식 안내를 확인하세요.",
+    "url": "https://www.weather.gov/safety/hurricane-action",
+    "condition": "열대폭풍 또는 허리케인 영향 지역"
+  },
+  {
+    "tokens": [
+      "red flag",
+      "fire weather",
+      "wildfire"
+    ],
+    "title": "산불 기상",
+    "text": "NWS 산불 기상 안전자료와 현지 당국의 최신 제한·대피 지시를 확인하세요.",
+    "url": "https://www.weather.gov/safety/wildfire",
+    "condition": "산불 발생 위험이 높은 기상 조건. 실제 산불·대피 명령을 의미하지 않음"
+  },
+  {
+    "tokens": [
+      "high wind",
+      "wind advisory",
+      "wind warning",
+      "wind watch",
+      "strong wind",
+      "windstorm"
+    ],
+    "title": "강풍 시 추가 행동요령",
+    "text": "• 강풍 경보가 발효 중이면 튼튼한 건물 안쪽 방이나 지하실로 이동하고, 창문과 외벽에서 떨어져 머무르세요.\n• 이동식 주택에 있다면 바람이 강해지기 전에 튼튼한 건물로 이동하세요. 밖에 있으면 나무와 날아오는 물체를 피하고, 끊어진 전선은 만지거나 가까이 가지 마세요.\n• 운전은 가능하면 미루세요. 불가피하면 속도를 줄이고 양손으로 운전대를 잡으며, 트럭·버스·트레일러와 거리를 두세요. 바람이 강해지기 전에는 야외의 느슨한 물건을 실내에 들이거나 고정하세요.",
+    "url": "https://www.weather.gov/safety/wind-during",
+    "condition": "NWS 강풍 주의보·경계·경보 또는 강풍 가능성이 있는 동안. 대피 지시가 있으면 현지 당국의 지시를 우선하세요."
+  }
+]

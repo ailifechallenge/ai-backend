@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ActionGuard · 모바일 미리보기 402 × 874</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #e9edf3; }
+    body { padding: 12px; overflow: hidden; font: 14px system-ui, sans-serif; color: #4b5563; }
+    main { width: max-content; margin: 0 auto; }
+    .device { position: relative; margin: auto; }
+    p { margin: 0 0 12px; text-align: center; }
+    iframe { position: absolute; inset: 0; transform-origin: top left; display: block; width: 402px; height: 874px; border: 0; background: #fff; box-shadow: 0 8px 36px #182d4b22; }
+
+  </style>
+</head>
+<body>
+  <main>
+    <p>모바일 미리보기 · 402 × 874 · 화면 안에서 스크롤하세요</p>
+    <div class="device"><iframe src="/" title="ActionGuard 모바일 앱" width="402" height="874" allow="geolocation; clipboard-read; clipboard-write" referrerpolicy="same-origin"></iframe></div>
+  </main>
+  <script>
+    const device = document.querySelector('.device');
+    const screen = document.querySelector('iframe');
+    function fitPreview() {
+      const label = document.querySelector('p');
+      const availableHeight = window.innerHeight - 24 - label.getBoundingClientRect().height - 12;
+      const scale = Math.max(0.1, Math.min(1, (window.innerWidth - 24) / 402, availableHeight / 874));
+      device.style.width = `${402 * scale}px`;
+      device.style.height = `${874 * scale}px`;
+      screen.style.transform = `scale(${scale})`;
+    }
+    fitPreview();
+    window.addEventListener('resize', fitPreview);
+  </script>
+</body>
+</html>

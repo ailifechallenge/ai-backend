@@ -1,0 +1,17 @@
+.spacer {
+  height: var(--bottom-cta-space);
+  flex: none;
+}
+
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  z-index: 20;
+  padding: var(--space-4) var(--space-4) calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  /* 아래로 스크롤되는 콘텐츠와 버튼이 겹쳐 보이지 않게 배경을 흐리게 깐다 */
+  background: linear-gradient(180deg, rgba(245, 250, 255, 0) 0%, var(--color-bg-bottom) 35%);
+}
