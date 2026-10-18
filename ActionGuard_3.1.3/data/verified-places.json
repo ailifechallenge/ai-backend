@@ -1,0 +1,76 @@
+[
+  {
+    "name": "Arlo Midtown",
+    "country": "US",
+    "address": "351 West 38th Street, New York, NY 10018",
+    "aliases": [
+      "알로 미드타운",
+      "Arlo Midtown New York",
+      "Arlo Midtown NYC"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo NoMad",
+    "country": "US",
+    "address": "11 East 31st Street, New York, NY 10016",
+    "aliases": [
+      "알로 노매드",
+      "Arlo Nomad New York"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo SoHo",
+    "country": "US",
+    "address": "231 Hudson Street, New York, NY 10013",
+    "aliases": [
+      "알로 소호",
+      "Arlo Soho New York"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo Williamsburg",
+    "country": "US",
+    "address": "96 Wythe Avenue, Brooklyn, NY 11249",
+    "aliases": [
+      "알로 윌리엄스버그"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo Chicago",
+    "country": "US",
+    "address": "168 N Michigan Ave, Chicago, IL 60601",
+    "aliases": [
+      "알로 시카고"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo Wynwood",
+    "country": "US",
+    "address": "2217 NW Miami Court, Miami, FL 33127",
+    "aliases": [
+      "알로 윈우드"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  },
+  {
+    "name": "Arlo Washington DC",
+    "country": "US",
+    "address": "333 G Street NW, Washington DC",
+    "aliases": [
+      "알로 워싱턴"
+    ],
+    "source": "https://arlohotels.com/about/contact-us/",
+    "checked_on": "2026-10-18"
+  }
+]

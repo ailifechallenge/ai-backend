@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: actionguard-travel-api
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: CORS_ORIGINS
+        value: capacitor://localhost,https://localhost,http://localhost
+      - key: PUSH_MODE
+        value: disabled
+      - key: GEMINI_FREE_TIER_CONFIRMED
+        value: "false"
+      - key: AI_DAILY_CALL_LIMIT
+        value: "40"

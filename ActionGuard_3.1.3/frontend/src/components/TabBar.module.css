@@ -1,0 +1,49 @@
+/* 화면 맨 아래 고정. 데스크톱에서는 430px 폰 프레임 폭에 맞춘다. */
+.bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: var(--app-max-width);
+  z-index: 20;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  height: var(--tabbar-total);
+  padding-bottom: var(--home-indicator);
+  background: #fff;
+  border-top: 1px solid var(--color-tabbar-border);
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  height: var(--tabbar-height);
+  padding: 6px 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-tab-inactive);
+  text-decoration: none;
+}
+
+.active {
+  color: var(--color-primary-strong);
+}
+
+.active span {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 2px;
+}
+
+.tab svg { width:24px; height:24px; flex:none; }
+.chat { gap:3px; overflow:visible; }
+.chat svg { width:48px; height:48px; padding:12px; margin-top:-17px; border-radius:50%; background:var(--color-primary); color:#fff; box-shadow:0 3px 10px #0b72b930; border:3px solid #fff; }
+.chat.active svg { background:var(--color-primary-strong); box-shadow:0 0 0 3px var(--color-primary-soft); }
+.chat span { font-size:11px; }
+
+.chat span { font-size:14px; font-weight:800; color:#173b56; line-height:1.25; }
+.chat.active span {color:var(--color-primary-strong);}

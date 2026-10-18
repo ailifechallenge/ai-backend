@@ -1,0 +1,9 @@
+{
+  "backend/core/translator.py": "c02249ca91f2bc47b0f5006cfc86ca2ae6f495d5f968cf596c548138098b5c46",
+  "backend/core/extractor.py": "21ad167c91eefecb7dca6a9c8fb1b12cd60dfc9c9e000f022aa15dbcfd2f29d6",
+  "backend/core/verification.py": "a2487baa547ee7b9ef8a769e7f0d18a0f750c8db89a346803f087e69c6b4c95b",
+  "backend/core/guidance.py": "55923ef8dbb5b5b7323939a5525b1a191666c30d2770ffe4c2de56d62eeb3501",
+  "backend/core/hazard_state.py": "f7c73413252a0cda01c78d5062e3b1100c8589aca6f1fad6f8c5f8de5d0aca6f",
+  "backend/core/times.py": "18995c6215d4b5257d818c8daa6f39c8dd1c0d9afa3fe06f95c31b4490f10b61",
+  "backend/models/contracts.py": "0fd6f5b71643c1884cb2770265f743453440b3f3eb5d9f1758a2af92e1e15283"
+}

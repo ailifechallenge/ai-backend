@@ -1,0 +1,102 @@
+[
+  {
+    "tokens": [
+      "wind",
+      "暴風",
+      "強風",
+      "暴風雪",
+      "typhoon"
+    ],
+    "title": "강풍·태풍 행동요령",
+    "text": "바람이 강해지기 전에 창문과 덧문을 잠그고, 날아갈 물건을 고정하거나 실내에 들이십시오. 실내에서는 커튼이나 블라인드를 내려 날아오는 물체에 대비하십시오. 이미 강풍이 불면 야외 정리 작업을 하러 나가지 말고 현지 안내를 확인하십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/ame_chuui/ame_chuui_p10.html",
+    "condition": "강풍 전 준비 및 강풍 위험 시",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "heavy rain",
+      "flood",
+      "landslide",
+      "大雨",
+      "氾濫",
+      "洪水",
+      "土砂災害"
+    ],
+    "title": "호우·침수·산사태 행동요령",
+    "text": "낮은 땅과 지하 공간은 빠르게 물이 찰 수 있어 접근을 피하십시오. 현지 지자체의 대피 정보를 확인하고, 위험이 커지기 전에 안전한 장소와 이동 방법을 확인하십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/ame_chuui/ame_chuui_p3.html",
+    "condition": "호우·침수 위험 지역",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "snow",
+      "snowstorm",
+      "大雪",
+      "風雪",
+      "着雪",
+      "avalanche",
+      "なだれ"
+    ],
+    "title": "폭설·눈보라 행동요령",
+    "text": "심한 폭설이 예보되면 불필요한 외출을 미루고, 다른 지역에서도 해당 지역으로 이동하지 마십시오. 최신 기상 정보와 교통 상황을 확인하십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/snow/snow.html",
+    "condition": "폭설로 교통 장애가 예상되는 경우",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "thunderstorm",
+      "lightning",
+      "雷"
+    ],
+    "title": "뇌우·낙뢰 행동요령",
+    "text": "천둥이 들리면 튼튼한 건물이나 지붕이 있는 차량 안으로 피하십시오. 해변·운동장·능선처럼 탁 트인 곳과 높은 나무 주변을 피하십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/toppuu/thunder4-3.html",
+    "condition": "천둥 또는 낙뢰 위험을 확인한 경우",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "high wave",
+      "storm surge",
+      "波浪",
+      "高潮"
+    ],
+    "title": "높은 파도·폭풍해일 행동요령",
+    "text": "높은 파도는 방파제를 넘을 수 있으므로 해안과 방파제에 가까이 가지 마십시오. 현지 기상 정보와 지자체 대피 안내를 확인하십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/ame_chuui/ame_chuui_p7.html",
+    "condition": "해안의 높은 파도 또는 해일 위험 시",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "earthquake",
+      "地震"
+    ],
+    "title": "지진 행동요령",
+    "text": "흔들리면 머리를 보호하고 튼튼한 책상 아래 등 안전한 곳으로 몸을 피하십시오. 급하게 밖으로 뛰어나가지 마십시오. 사람이 많은 시설에서는 직원의 안내를 따르십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/jishin/eew/koudou/koudou.html",
+    "condition": "지진 경보를 듣거나 흔들림을 느낀 경우",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  },
+  {
+    "tokens": [
+      "tsunami",
+      "津波"
+    ],
+    "title": "쓰나미 행동요령",
+    "text": "쓰나미 경보를 듣거나 해안에서 강하거나 긴 흔들림을 느끼면 해안에서 벗어나 더 높은 안전한 장소로 대피하십시오. 경보·주의보가 해제될 때까지 해안으로 돌아가지 마십시오.",
+    "url": "https://www.jma.go.jp/jma/kishou/know/jishin/tsunami_bosai/index.html",
+    "condition": "쓰나미 경보 또는 해안의 강하거나 긴 흔들림을 확인한 경우",
+    "reviewed_at": "2026-10-15",
+    "review_status": "source_cross_checked_not_expert_approved"
+  }
+]

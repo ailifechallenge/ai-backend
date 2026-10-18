@@ -1,0 +1,55 @@
+.box {
+  background: var(--color-emergency-bg);
+  color: #fff;
+  border-radius: var(--radius-card);
+  padding: var(--space-4) var(--space-5);
+  border-left: 6px solid var(--color-caution-border);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 12.5px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  color: var(--color-caution-border);
+}
+
+.text {
+  margin-top: 6px;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.quote {
+  margin-top: 6px;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.quote q {
+  quotes: '“' '”';
+}
+
+.text {
+  white-space: pre-line;
+}
+
+.aiNote {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.quote {
+  white-space: pre-line;
+  word-break: normal;
+}

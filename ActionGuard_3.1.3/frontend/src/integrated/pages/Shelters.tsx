@@ -1,0 +1,61 @@
+import SharedLocationCard from '../../components/SharedLocationCard';
+import {useEffect,useRef,useState} from 'react';
+import {Link,useLocation,useSearchParams} from 'react-router-dom';
+import {api} from '../services/api';
+import {Panel,ErrorBox} from '../components/Common';
+import Navigation from './Navigation';
+import ShelterMap from '../features/shelters/ShelterMap';
+import {inUSCoverage,inJapanCoverage,NYC_EXAMPLE,TOKYO_EXAMPLE} from '../features/shelters/coverage';
+import {readSnapshot,saveSnapshot,deleteSnapshot,downloadSnapshot,sketch} from '../features/shelters/offline';
+import {distance} from '../features/shelters/types';
+import type {Origin,SearchResult,Snapshot} from '../features/shelters/types';
+import {useWorkspace} from '../hooks/workspace';
+import {disasterLabels,disastersFor} from '../hooks/journey';
+import {readHandoff} from '../features/seismic/journey';
+const displayStatus=(label:string)=>label.replace(/입소 목적지 제외|목적지 제외/g,'위치 참고');
+const KINDS:Record<string,string>={school:'학교·교육시설',community:'공공시설·피난소',religious:'종교시설',assembly:'체육관·컨벤션',lodging:'숙박시설',camp:'숙영지',warehouse:'창고',safe_room:'안전실',temporary:'임시시설',evacuation_center:'긴급대피장소',other:'유형 미확인'};
+export default function Shelters(){
+ const ws=useWorkspace();const [params]=useSearchParams();const location=useLocation();const handoff=readHandoff(location.state);
+ const firstCountry=ws.country;
+ const queryPoint={lat:Number(params.get('lat')),lon:Number(params.get('lon'))};
+ const queryOrigin=params.get('lat')?.trim()&&params.get('lon')?.trim()&&(firstCountry==='JP'?inJapanCoverage(queryPoint):inUSCoverage(queryPoint))?queryPoint:null;
+ const initial=handoff?.origin??queryOrigin??(ws.place?.country===firstCountry?ws.place:firstCountry==='JP'?TOKYO_EXAMPLE:NYC_EXAMPLE);
+ const [,setOriginNote]=useState(handoff?.origin?'전달받은 조회 위치입니다.':queryOrigin?'AI 도우미에서 검색한 장소의 좌표입니다. 실제 GPS 위치가 아닙니다.':ws.place?.country===firstCountry?'등록한 공통 위치입니다.':'미등록 상태의 좌표는 '+(firstCountry==='JP'?'도쿄역':'뉴욕')+' 예시입니다.');
+ const [country,setCountry]=useState<'US'|'JP'>(firstCountry);const [lat,setLat]=useState(String(initial.lat)),[lon,setLon]=useState(String(initial.lon));
+ const [radius,setRadius]=useState(firstCountry==='JP'?'5':'10');const [disaster,setDisaster]=useState(handoff?.hazard??(disastersFor(firstCountry).includes(params.get('disaster')||'')?params.get('disaster')!:'general'));
+ const [registered]=useState(false),[kind,setKind]=useState('all');
+ const [result,setResult]=useState<SearchResult|null>(null),[selected,setSelected]=useState(''),[name,setName]=useState(handoff?.origin?.name??(ws.place?.country===firstCountry?ws.place.name:''));
+ const [busy,setBusy]=useState(false),[error,setError]=useState<unknown>(null),[message,setMessage]=useState('');
+ const [saved,setSaved]=useState(readSnapshot),[isSaved,setIsSaved]=useState(false);
+ const generation=useRef(0);useEffect(()=>()=>{generation.current++;},[]);
+ function clear(){generation.current++;setBusy(false);setResult(null);setSelected('');setError(null);setMessage('');setIsSaved(false);}
+ function setOrigin(p:Origin){clear();setName('지도에서 선택한 위치');setOriginNote('직접 지정하거나 확인한 조회 좌표입니다.');setLat(String(p.lat));setLon(String(p.lon));}
+ function switchCountry(c:'US'|'JP'){clear();setOriginNote(ws.place?.country===c?'등록한 공통 위치입니다.':'미등록 상태의 좌표는 '+(c==='JP'?'도쿄역':'뉴욕')+' 예시입니다.');setCountry(c);setDisaster('general');setRadius(c==='JP'?'5':'10');setName('');const p=ws.place?.country===c?ws.place:c==='JP'?TOKYO_EXAMPLE:NYC_EXAMPLE;setLat(String(p.lat));setLon(String(p.lon));}
+ const sharedInitial=useRef(true);
+ useEffect(()=>{if(sharedInitial.current){sharedInitial.current=false;if(queryOrigin||handoff?.origin)return;}if(ws.country!==country)switchCountry(ws.country);if(ws.place?.country===ws.country){setOrigin(ws.place);setName(ws.place.name);setOriginNote('등록한 공통 위치입니다.');}},[ws.country,ws.place]);
+ function origin(){const p={lat:Number(lat),lon:Number(lon)};if(!lat.trim()||!lon.trim()||!(country==='JP'?inJapanCoverage(p):inUSCoverage(p)))throw new Error('국가와 좌표를 확인하십시오. 뉴욕 위도는 40.7580, 도쿄는 35.6812입니다.');return p;}
+ async function search(example=false,at?:Origin){clear();const p=example?(country==='JP'?TOKYO_EXAMPLE:NYC_EXAMPLE):null;if(p){setOriginNote((country==='JP'?'도쿄역':'뉴욕')+' 예시 위치입니다. 실제 GPS 위치가 아닙니다.');setLat(String(p.lat));setLon(String(p.lon));}const id=generation.current;try{const point=at||p||origin();if(!(country==='JP'?inJapanCoverage(point):inUSCoverage(point)))throw new Error('선택한 국가 안의 위치를 확인하십시오.');setBusy(true);const data=await api<SearchResult>(`shelters?lat=${point.lat}&lon=${point.lon}&radius_km=${radius}&disaster=${disaster}&include_registered=${registered}&country=${country}`);if(id!==generation.current)return;setResult(data);setKind('all');}catch(e){if(id===generation.current)setError(e);}finally{if(id===generation.current)setBusy(false);}}
+ function locate(andSearch=false){clear();if(!navigator.geolocation){setError(new Error('위치 조회를 지원하지 않습니다.'));return;}const id=generation.current;setBusy(true);navigator.geolocation.getCurrentPosition(p=>{if(id!==generation.current)return;const next={lat:p.coords.latitude,lon:p.coords.longitude};if(!(country==='JP'?inJapanCoverage(next):inUSCoverage(next))){setBusy(false);setError(new Error('현재 위치가 선택한 국가 밖에 있습니다. 상단 국가를 확인하거나 도시·숙소를 검색하십시오.'));return;}setOrigin(next);setOriginNote('기기에서 확인한 현재 위치입니다.');setName('현재 위치');if(andSearch)void search(false,next);},()=>{if(id===generation.current){setBusy(false);setError(new Error('위치 권한을 확인하거나 도시·숙소를 검색하십시오.'));}},{timeout:10000,maximumAge:0});}
+
+ const point=lat.trim()&&lon.trim()&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lon))&&Math.abs(Number(lat))<=90&&Math.abs(Number(lon))<=180?{lat:Number(lat),lon:Number(lon)}:null;
+ const shown=result?.shelters.filter(s=>kind==='all'||s.shelter_type===kind)||[];const row=result?.shelters.find(s=>s.id===selected);
+ function snapshot():Snapshot{if(!result?.shelters.length)throw new Error('시설을 먼저 조회하십시오.');return{version:1,saved_at:new Date().toISOString(),origin_label:name||'조회 위치',result,selected_id:selected||result.shelters[0].id,route:null};}
+
+ return <>{params.get('country')&&params.get('country')!==ws.country&&<p className="notice" role="alert">전달받은 장소와 상단의 선택 국가가 다릅니다. 상단에서 해당 국가를 선택한 뒤 장소를 다시 확인해 주십시오.</p>}<div hidden={params.get('view')==='route'}><SharedLocationCard/>
+ {handoff&&<div className="toolbar"><Link state={{seismicHandoff:handoff}} to={handoff.returnTo}>지진·쓰나미 정보로 돌아가기</Link></div>}
+ {handoff&&<div className="notice" role="status"><strong>{disasterLabels[handoff.hazard]} 정보에서 이어서 확인하고 있습니다.</strong><p>{handoff.origin?(handoff.origin.example?'도쿄역 예시 위치를 전달받았습니다. 실제 위치로 바꾼 뒤 사용하십시오.':'앞 화면에서 확인한 위치를 조회 위치로 연결했습니다. 검색 전에 위치를 확인하십시오.'):'내 위치가 전달되지 않았습니다. 아래의 현재 위치·등록한 위치·지도 선택으로 조회 위치를 먼저 확인하십시오.'}</p><p>재난 유형은 {disasterLabels[disaster]}입니다. 시설 목록은 대피 명령이나 안전 순위가 아닙니다.</p></div>}
+ <Panel><details className="shelter-settings" open={!result}><summary>재난 유형·검색 반경</summary>
+ <div className="shelter-quick-filters"><label>재난 유형<select value={disaster} onChange={e=>{clear();setDisaster(e.target.value);}}>{disastersFor(country).map(k=><option key={k} value={k}>{disasterLabels[k]}</option>)}</select></label><label>검색 반경<select value={radius} onChange={e=>{clear();setRadius(e.target.value);}}>{(country==='JP'?[1,3,5,10]:[1,3,5,10,25,50]).map(n=><option key={n} value={n}>{n}km</option>)}</select></label></div>
+ <button className="button primary shelter-search-main" disabled={busy} onClick={()=>void search(false,ws.place?.country===country?ws.place:undefined)}>{busy?'시설을 찾고 있습니다…':'등록 위치 주변 시설 찾기'}</button>
+ <details className="shelter-extra"><summary>자료 출처 · 조회 기준</summary>
+ {country==='JP'?<p className="notice">일본 국토지리원·시정촌 자료입니다. 일반 피난소는 일시 체류 시설이며 재난별 적합 여부가 미확인입니다. 지진·쓰나미 등을 선택하면 그 재난에 지정된 긴급대피장소만 표시합니다. 지정 여부와 현재 개방 여부는 다릅니다.</p>:<p className="notice">미국 FEMA 운영정보와 뉴욕시 지정 접수센터 자료를 확인합니다. 일반 검색에 함께 표시되는 허리케인 전용 지정시설은 위치 참고자료이며 현재 개방 여부와 다른 재난 적합성은 미확인입니다.</p>}
+ </details></details></Panel><ErrorBox error={error}/>{busy&&<p role="status">공식 시설 자료를 조회하고 있습니다…</p>}{message&&<p role="status">{message}</p>}
+
+ {isSaved&&<p className="notice">저장 당시 자료입니다. 현재 상태는 다시 조회하십시오.</p>}
+ <Panel className="facility-map-panel"><h2>시설 위치 지도</h2>{result&&<label>시설 유형<select value={kind} onChange={e=>{setKind(e.target.value);setSelected('');}}><option value="all">전체 유형</option>{Object.entries(KINDS).filter(([k])=>result.shelters.some(s=>s.shelter_type===k)).map(([k,v])=><option key={k} value={k}>{v} ({result?.shelters.filter(s=>s.shelter_type===k).length||0})</option>)}</select></label>}
+ {isSaved&&!navigator.onLine&&saved?<div dangerouslySetInnerHTML={{__html:sketch({...saved,route:null})}}/>:<ShelterMap origin={result?.origin||point} shelters={shown} selected={selected} route={null} disaster={disaster} onSelect={setSelected} onOrigin={setOrigin}/>}<div className="map-point-actions"><button className="button primary" disabled={busy} onClick={()=>locate(true)}>현 위치 주변 시설 찾기</button><button className="button outline" disabled={busy} onClick={()=>void search()}>지도 기준 주변 시설 찾기</button></div><p className="muted">거리 순은 안전 순위가 아닙니다. 점선 표시는 개방 미확인 지정시설 또는 등록 이력 참고자료입니다.</p></Panel>
+ {result&&<Panel><h2>표시 {shown.length}곳 / 조회 시설 {result.shelters.length}곳</h2><ul className="official-action-summary facility-result-summary"><li>기준점 반경 {result.radius_km}km 안에서 조회한 시설을 직선거리 순으로 표시합니다.</li><li>시설을 선택하면 위치와 확인된 운영 상태를 볼 수 있습니다.</li><li>{result.warnings.length?'일부 자료는 확인되지 않았습니다. 방문 전 공식 자료에서 개방 여부와 재난별 이용 가능 여부를 확인하십시오.':'방문 전 공식 자료에서 개방 여부와 재난별 이용 가능 여부를 확인하십시오.'}</li></ul>{Array.from(new Set(result.sources?.length?result.sources:[result.source])).map((source,i)=><a key={source} href={source} target="_blank" rel="noreferrer">{source.includes('cityofnewyork')?'뉴욕시 지정 접수센터 자료':`공식 시설 자료 ${i+1}`} 확인 ↗ </a>)}{!shown.length&&<p>이 반경에서 표시할 자료가 없습니다. 시설 부재를 의미하지 않습니다.</p>}
+ {row&&<div className="facility-detail"><strong>{row.name}</strong><p>{row.address}</p><p>{row.role_label} · {displayStatus(row.status_label)}. {row.reference_only?'지정시설의 위치 참고자료로, 현재 개방 여부는 확인되지 않았습니다.':'이용 전 현지 당국에서 개방 여부와 해당 재난에 이용할 수 있는지 확인하십시오.'}</p>{!isSaved?<><Link className="button primary facility-route-button" state={handoff?{seismicHandoff:handoff}:undefined} to={'/shelters?'+new URLSearchParams({view:'route',from:`${result.origin.lat},${result.origin.lon}`,to:`${row.lat},${row.lon}`,name:row.name,country})}>이 시설까지 길찾기 →</Link><p className="small-note">시설 위치까지의 일반 도로 경로입니다. 현재 개방·입소 가능 여부는 별도로 확인하십시오.</p></>:<p>저장본은 현재 상태를 다시 조회한 뒤 길찾기에 연결하십시오.</p>}</div>}
+ <div className="shelter-list">{shown.slice(0,100).map(s=><button key={s.id} className={'shelter-item '+(s.id===selected?'selected':'')} onClick={()=>setSelected(s.id)}><span><strong>{s.name}</strong><small>{s.role_label||s.type_label} · 직선 {distance(s.distance_m)} · {s.direction}</small><small>{s.address}</small><span className="badge">{displayStatus(s.status_label)}</span></span></button>)}</div>{shown.length>100&&<p>지도에는 전체, 목록에는 가까운 100곳을 표시합니다.</p>}</Panel>}
+ {(result||saved)&&<details className="save-tools"><summary>시설 목록 저장·불러오기</summary><p className="small-note">인터넷 없이 볼 시설 목록·약도를 저장합니다. 저장 후의 변경 사항은 반영되지 않습니다.</p><div className="toolbar"><button className="button outline" disabled={!result?.shelters.length} onClick={()=>{try{saveSnapshot(snapshot());setSaved(readSnapshot());setMessage('시설 목록과 약도를 이 브라우저에 저장했습니다.');}catch(e){setError(e);}}}>목록 오프라인 저장</button><button className="button outline" disabled={!result?.shelters.length} onClick={()=>{try{downloadSnapshot(snapshot());}catch(e){setError(e);}}}>목록 안내 파일 다운로드</button>{saved&&<><button className="button outline" onClick={()=>{if((saved.result.country||'US')!==ws.country){setError('저장본은 다른 국가 자료입니다. 상단에서 해당 국가를 선택한 뒤 불러오십시오.');return;}clear();setCountry(ws.country);setResult(saved.result);setLat(String(saved.result.origin.lat));setLon(String(saved.result.origin.lon));setRadius(String(saved.result.radius_km));setDisaster(saved.result.disaster);setKind('all');setIsSaved(true);}}>저장본 불러오기</button><button className="button ghost" onClick={()=>{deleteSnapshot();setSaved(null);}}>저장본 삭제</button></>}</div></details>}</div>{params.get('view')==='route'&&<Navigation/>}</>;
+}

@@ -1,0 +1,32 @@
+
+> actionguard-team-integrated@3.0.0 prebuild
+> npm run sync:styles
+
+
+> actionguard-team-integrated@3.0.0 sync:styles
+> node scripts/sync-feature-styles.mjs
+
+
+> actionguard-team-integrated@3.0.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 1722 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                           0.95 kB │ gzip:   0.47 kB
+dist/assets/journey-vh-t_kPv.css         15.09 kB │ gzip:   6.36 kB
+dist/assets/index-gBoqviZ0.css           74.17 kB │ gzip:  14.09 kB
+dist/assets/web-BM7xF5pS.js               0.84 kB │ gzip:   0.40 kB
+dist/assets/WeatherAlert-BLqj884H.js      3.50 kB │ gzip:   1.86 kB
+dist/assets/model-C_15Qzr-.js             4.24 kB │ gzip:   2.40 kB
+dist/assets/dist-CMedSjkm.js              7.74 kB │ gzip:   3.09 kB
+dist/assets/Notifications-D5gWUSWR.js     9.94 kB │ gzip:   3.79 kB
+dist/assets/JapanDisasters-DCllf3RK.js   18.40 kB │ gzip:   6.27 kB
+dist/assets/Shelters-ysK70Zim.js         38.25 kB │ gzip:  13.64 kB
+dist/assets/api-CO2iN4E3.js              54.60 kB │ gzip:  19.86 kB
+dist/assets/journey-VKyQlY_D.js         156.52 kB │ gzip:  46.66 kB
+dist/assets/index-QkFHBjko.js           460.50 kB │ gzip: 138.93 kB
+
+✓ built in 243ms

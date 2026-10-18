@@ -1,0 +1,4 @@
+-r requirements.txt
+google-auth[requests]>=2.38,<3
+PyJWT[crypto]>=2.10,<3
+httpx[http2]>=0.27,<1

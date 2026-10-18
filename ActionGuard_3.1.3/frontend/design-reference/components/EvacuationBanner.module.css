@@ -1,0 +1,54 @@
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--color-caution-bg);
+  border: 1.5px solid var(--color-caution-border);
+  border-radius: var(--radius-card);
+}
+
+.text {
+  flex: 1 1 180px;
+  min-width: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  color: var(--color-caution-text);
+}
+
+.icon {
+  flex: none;
+  margin-top: 2px;
+}
+
+.body {
+  min-width: 0;
+}
+
+.title {
+  font-weight: 800;
+  font-size: 15.5px;
+}
+
+.sub {
+  font-size: 13px;
+}
+
+.banner > a {
+  flex: 0 0 auto;
+}
+
+/* 카드 밖에 떠 있던 대피 안내 문구를 흰 카드로 묶는다 */
+.unclear {
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}

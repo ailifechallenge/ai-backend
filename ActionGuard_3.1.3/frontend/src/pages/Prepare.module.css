@@ -1,0 +1,145 @@
+.warn {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-caution-bg);
+  border: 1.5px solid var(--color-caution-border);
+  border-radius: 16px;
+  color: var(--color-caution-text);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.warnIcon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+}
+
+.segment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: 4px;
+  gap: 4px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+}
+
+.segItem {
+  min-height: var(--touch-min);
+  padding: 4px 6px;
+  font-size: 14px;
+  line-height: 1.3;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  font-weight: 700;
+  color: var(--color-text-sub);
+}
+
+.segActive {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.supplies {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.supply {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.supplyText {
+  flex: 1 1 120px;
+  min-width: 0;
+}
+
+.supply > a {
+  flex: 0 0 auto;
+  font-size: 14px;
+}
+
+.supplyKo {
+  font-weight: 800;
+  font-size: 15.5px;
+}
+
+.supplyEn {
+  font-size: 13px;
+  color: var(--color-text-sub);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  min-height: var(--touch-min);
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-card);
+  color: var(--color-primary-strong);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.chipActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: var(--space-2);
+  min-width: 0;
+}
+
+.fieldLabel {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.input {
+  min-height: var(--touch-min);
+  padding: 8px 12px;
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: var(--radius-control);
+  background: #fff;
+  font-size: 15px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* 일정 화면에서 넘어온 경우의 일정 이름 칩 */
+.fromChip {
+  align-self: flex-start;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+
+.supplyKo,.supplyEn { display:block; }
+.supplyEn { margin-top:4px; font-weight:400; }

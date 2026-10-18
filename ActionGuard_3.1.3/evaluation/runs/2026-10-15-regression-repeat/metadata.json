@@ -1,0 +1,20 @@
+{
+  "started_at": "2026-10-14T15:19:18.337361+00:00",
+  "model": "gemini-3.5-flash-lite",
+  "dataset_sha256": "2b587cd12b0e650a9217c072b0165f5c21af3b10a319d2cae2c637a9511004d5",
+  "selected": [
+    "jp-iso-wave",
+    "us-date-heat"
+  ],
+  "repeats": 2,
+  "max_calls": 16,
+  "release_decision": "HOLD: independent review and coverage required",
+  "summary_error_rate": null,
+  "semantic_verification_miss_rate": null,
+  "stopped": "HTTPException",
+  "http_status": 429,
+  "error_category": "Gemini 무료 사용량 또는 요청 한도 초과. 자동 재시도·유료 전환 없음.",
+  "completed": 3,
+  "calls": 14,
+  "finished_at": "2026-10-14T15:19:35.280583+00:00"
+}

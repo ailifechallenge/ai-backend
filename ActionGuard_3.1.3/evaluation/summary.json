@@ -1,0 +1,30 @@
+{
+  "completed_analyses": 5,
+  "distinct_cases": 4,
+  "attempted_api_calls_including_network_failure": 32,
+  "stopped_runs": [
+    {
+      "status": 502,
+      "completed": 0
+    },
+    {
+      "status": 502,
+      "completed": 1
+    },
+    {
+      "status": 502,
+      "completed": 0
+    },
+    {
+      "status": 429,
+      "completed": 3
+    }
+  ],
+  "injected_errors": 2,
+  "injected_errors_detected": 2,
+  "injection_miss_rate": 0.0,
+  "independently_reviewed_summaries": 0,
+  "summary_error_rate": null,
+  "release_decision": "HOLD",
+  "reason": "Insufficient coverage; independent review and final-code live reevaluation required"
+}

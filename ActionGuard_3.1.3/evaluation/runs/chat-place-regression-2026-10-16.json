@@ -1,0 +1,47 @@
+[
+  {
+    "question": "일본 지진 났는데 어디서 났어?",
+    "status": 200,
+    "mode": "live",
+    "intent": "japan_disasters",
+    "answer": "가장 최근 공식 관측은 캄차카반도 부근 (カムチャツカ半島付近)에서 발생한 지진이에요. 10월 16일 12:38 일본 시간 · M6.9 · 최대 관측 진도 1 · 깊이 160.0km. 방금 느낀 흔들림과 같은 사건인지는 이 목록만으로 확정할 수 없어요.",
+    "query_location": null,
+    "needs_location": false,
+    "items": 3,
+    "scope_note": "최대 관측 진도는 내 위치의 진도가 아니에요. 긴급지진속보가 아닌 발생 후 관측 자료입니다."
+  },
+  {
+    "question": "지금 지진 났는데 도쿄역에서 가장 가까운 대피소 알려줘",
+    "status": 200,
+    "mode": "live",
+    "intent": "shelters",
+    "answer": "도쿄역 기준 조회 목록에서 가장 가까운 시설은 城東小学校이며, 직선거리 약 268m예요. 가까운 순서로 최대 3곳을 보여드려요.",
+    "query_location": {
+      "country": "JP",
+      "lat": 35.680833056,
+      "lon": 139.766943889,
+      "name": "도쿄역",
+      "approximate": false
+    },
+    "needs_location": false,
+    "items": 3,
+    "scope_note": "도쿄역 · 일본 도쿄도 지요다구 · 검색한 장소 기준이며 내 현재 GPS 위치가 아니에요. · 직선거리 순 · 개방·입소 가능·이동 안전은 별도 확인"
+  },
+  {
+    "question": "시카고 주변에 대피소 위치 알려줘",
+    "status": 200,
+    "mode": "live",
+    "intent": "shelters",
+    "answer": "반경 10km의 공식 조회 목록에서 연결할 시설을 찾지 못했어요. 시설이 없다는 뜻은 아니에요.",
+    "query_location": {
+      "country": "US",
+      "lat": 41.85003,
+      "lon": -87.65005,
+      "name": "시카고",
+      "approximate": true
+    },
+    "needs_location": false,
+    "items": 0,
+    "scope_note": "Chicago, Illinois, United States · 도시·지역 대표 지점 기준이며 내 실제 위치와 다를 수 있어요. 정확한 주변 검색은 위치를 지정해 주세요. · 직선거리 순 · 개방·입소 가능·이동 안전은 별도 확인"
+  }
+]

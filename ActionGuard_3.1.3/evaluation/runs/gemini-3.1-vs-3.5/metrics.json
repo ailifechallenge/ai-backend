@@ -1,0 +1,76 @@
+{
+  "gemini-3.1-flash-lite": {
+    "attempts": 50,
+    "completed": 50,
+    "errors": 0,
+    "latency_mean_s": 2.504,
+    "latency_median_s": 2.367,
+    "latency_p95_s": 3.542,
+    "usage": {
+      "promptTokenCount": 91545,
+      "candidatesTokenCount": 27185,
+      "thoughtsTokenCount": 0,
+      "totalTokenCount": 118730,
+      "cachedContentTokenCount": 0
+    },
+    "estimated_standard_paid_usd": 0.063664,
+    "model_versions": {
+      "gemini-3.1-flash-lite": 50
+    },
+    "translation_mean_chars": 410.9,
+    "literal_newline_escapes_in_translation": 0,
+    "by_country": {
+      "US": {
+        "completed": 25,
+        "latency_median_s": 2.423
+      },
+      "JP": {
+        "completed": 25,
+        "latency_median_s": 2.331
+      }
+    },
+    "format_checks": {
+      "summary_at_most_3": 50,
+      "glossary_at_most_3": 50,
+      "no_raw_iso_in_summary": 50,
+      "correct_instruction_nullness": 36
+    }
+  },
+  "gemini-3.5-flash-lite": {
+    "attempts": 50,
+    "completed": 50,
+    "errors": 0,
+    "latency_mean_s": 2.697,
+    "latency_median_s": 2.612,
+    "latency_p95_s": 4.36,
+    "usage": {
+      "promptTokenCount": 91545,
+      "candidatesTokenCount": 34434,
+      "thoughtsTokenCount": 0,
+      "totalTokenCount": 125979,
+      "cachedContentTokenCount": 0
+    },
+    "estimated_standard_paid_usd": 0.113548,
+    "model_versions": {
+      "gemini-3.5-flash-lite": 50
+    },
+    "translation_mean_chars": 664.6,
+    "literal_newline_escapes_in_translation": 2,
+    "by_country": {
+      "US": {
+        "completed": 25,
+        "latency_median_s": 2.758
+      },
+      "JP": {
+        "completed": 25,
+        "latency_median_s": 2.343
+      }
+    },
+    "format_checks": {
+      "summary_at_most_3": 50,
+      "glossary_at_most_3": 50,
+      "no_raw_iso_in_summary": 50,
+      "correct_instruction_nullness": 38
+    }
+  }
+}

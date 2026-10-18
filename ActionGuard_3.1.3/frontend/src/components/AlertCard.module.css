@@ -1,0 +1,43 @@
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: var(--space-2);
+}
+
+.nameKo {
+    min-width: 0;
+  font-size: 21px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: var(--color-text);
+}
+
+.nameEn {
+  margin-top: 2px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--color-text-sub);
+}
+
+.meta {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-text-sub);
+}
+
+.actions {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+}
+
+.actions > :first-child {
+  align-self: stretch;
+}
+
+.link {
+  font-size: 13.5px;
+}

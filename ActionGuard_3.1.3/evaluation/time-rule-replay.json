@@ -1,0 +1,18 @@
+[
+  {
+    "run": "2026-10-15-regression-repeat",
+    "repeat": 1,
+    "old_unresolved": [],
+    "new_rule_unresolved": [],
+    "note": "Offline rule replay only; no new AI judgment or original hidden unresolved recovered"
+  },
+  {
+    "run": "2026-10-15-regression-repeat",
+    "repeat": 2,
+    "old_unresolved": [
+      "날짜/시간대 원형이 유지되지 않음: 2026-10-14T16:20:00+09:00. 동등한 표기인지는 추가 확인 필요."
+    ],
+    "new_rule_unresolved": [],
+    "note": "Offline rule replay only; no new AI judgment or original hidden unresolved recovered"
+  }
+]

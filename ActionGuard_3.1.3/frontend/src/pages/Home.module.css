@@ -1,0 +1,157 @@
+.nowrap {
+  white-space: nowrap;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+  margin: -12px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.empty {
+  font-size: 14.5px;
+  color: var(--color-text-sub);
+  font-weight: 600;
+}
+
+.others {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-sub);
+}
+
+/* 홈 카드 간격 12px */
+.body {
+  gap: var(--space-3);
+}
+
+/* 카드 밖에 떠 있던 안내 문구를 담는 작은 흰 카드 */
+.noteCard {
+  padding: var(--space-3) var(--space-4);
+}
+
+/* 상단바에서 옮겨 온 현재 위치 박스 */
+.locationBox {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  font-size: 14.5px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.locationIcon {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+}
+
+.locationText {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.checked {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+
+.stale {
+  color: var(--color-caution-text);
+}
+
+.changeLocation {
+  flex: none;
+  min-height: 36px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid var(--color-border-strong);
+  background: var(--color-card);
+  color: var(--color-primary-strong);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.others summary {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--color-primary-strong);
+  cursor: pointer;
+}
+
+.otherList {
+  list-style: none;
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.otherItem {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: var(--touch-min);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  background: var(--color-muted-bg);
+  text-align: left;
+}
+
+.otherName {
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.otherMeta {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--color-text-sub);
+}
+
+.otherNote {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--color-text-sub);
+}
+
+/* Home has one prominent task; supporting destinations are quiet rows. */
+.hero { padding: 20px 16px; }
+.heroActions { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+.secondaryAction { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; font-size: 14px; font-weight: 650; text-decoration: none; }
+.quickLinks { background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius-card); padding: 0 16px; }
+.quickLinks > a { display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 12px 0; text-decoration: none; color: var(--color-text); }
+.quickLinks > a + a { border-top: 1px solid var(--color-border); }
+.quickLinks > a > svg { flex: none; color: var(--color-primary); }
+.quickLinks > a > svg:last-child { margin-left: auto; color: var(--color-text-sub); }
+.quickLinks span { min-width: 0; }
+.quickLinks strong { display: block; font-size: 15px; font-weight: 700; }
+.quickLinks small { display: block; margin-top: 3px; font-size: 13px; line-height: 1.5; color: var(--color-text-sub); }

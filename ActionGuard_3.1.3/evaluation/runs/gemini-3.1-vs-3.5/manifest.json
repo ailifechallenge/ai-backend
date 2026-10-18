@@ -1,0 +1,19 @@
+{
+  "models": [
+    "gemini-3.1-flash-lite",
+    "gemini-3.5-flash-lite"
+  ],
+  "max_generation_calls": 100,
+  "temperature": 0,
+  "repetitions_per_case_per_model": 1,
+  "evaluation": "translation only, not full chat/urgency pipeline",
+  "source_hashes": {
+    "backend/core/translator.py": "5eff2a143d52b2717f2009abc86168f37e74ffbbfce297f57a00e1dff5fd0d90",
+    "backend/core/gemini.py": "069288db14df9f587f12723a30a9ec80499d008c683c469ebc4ea573e1f27de7",
+    "backend/core/times.py": "c176b219e775fc71e02ff8b13ef8bda1c14d41d455725a0cc74cf801a1b1ec91",
+    "backend/models/contracts.py": "19728b944e14e123cde9bd19dddfae85a2858837fabec506161ca7514a5a2788"
+  },
+  "dataset_sha256": "565771c7eea0754c1aed58ce0fcf15736139f7d19d1cd2828aa2843c6326159a",
+  "source_preparation": "US complete structured fields + action instruction; JP XML textual leaves without code/geometries/attributes. No prose truncation.",
+  "limits": "50 bulletin records, not 50 independent incidents; includes updates and alternative bulletin formats. No independent expert gold labels."
+}
