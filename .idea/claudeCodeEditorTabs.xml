@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClaudeCodeEditorTabs">
+    <option name="activeSessionId" value="8ae11e1b-a5e0-44e9-9495-2379c17645b6" />
+    <option name="openSessionIds">
+      <list>
+        <option value="5e5decd6-9b53-448f-80d7-211605ec64ea" />
+        <option value="4aaeeb54-0ea0-4cef-b415-95a0f643158d" />
+        <option value="946260c3-b443-462a-9f2a-95f622cde222" />
+        <option value="8ae11e1b-a5e0-44e9-9495-2379c17645b6" />
+      </list>
+    </option>
+    <option name="sessionPaths">
+      <map>
+        <entry key="4aaeeb54-0ea0-4cef-b415-95a0f643158d" value="/sessions/09c16df5-a7a1-4f11-8fa9-6466e1ccc842" />
+        <entry key="5e5decd6-9b53-448f-80d7-211605ec64ea" value="/sessions/47b72881-8733-4f58-9143-f5b036aa9279" />
+        <entry key="8ae11e1b-a5e0-44e9-9495-2379c17645b6" value="/sessions/09c16df5-a7a1-4f11-8fa9-6466e1ccc842" />
+        <entry key="946260c3-b443-462a-9f2a-95f622cde222" value="/sessions/new" />
+      </map>
+    </option>
+    <option name="sessionTitles">
+      <map>
+        <entry key="4aaeeb54-0ea0-4cef-b415-95a0f643158d" value="3.1.2 npm run dev해봐" />
+        <entry key="5e5decd6-9b53-448f-80d7-211605ec64ea" value="3.0.5 파일의 프론트엔드 켜봐" />
+        <entry key="8ae11e1b-a5e0-44e9-9495-2379c17645b6" value="3.1.2 npm run dev해봐" />
+        <entry key="946260c3-b443-462a-9f2a-95f622cde222" value="Claude Code" />
+      </map>
+    </option>
+  </component>
+</project>

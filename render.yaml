@@ -1,0 +1,27 @@
+# Render 대시보드 → New → Blueprint → 이 레포 선택.
+services:
+  - type: web
+    name: actionguard-api
+    runtime: python
+    plan: free                       # 무료는 유휴 시 잠듭니다. 발표 전에 한 번 접속해 깨우세요.
+    rootDir: ActionGuard_3.1.2       # 실제 폴더명과 같아야 합니다.
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION          # Render가 이 버전을 지원하지 않는다고 하면 3.12.x 중 안내되는 버전으로 바꾸세요.
+        value: 3.12.8
+      - key: GEMINI_API_KEY          # 대시보드에서 직접 입력 (코드에 쓰지 마세요)
+        sync: false
+      - key: GEMINI_FREE_TIER_CONFIRMED
+        sync: false                  # 무료 티어를 확인했다면 true
+      - key: GEMINI_MODEL
+        value: gemini-3.5-flash-lite
+      - key: AI_DAILY_CALL_LIMIT
+        value: "40"
+      - key: NWS_USER_AGENT
+        sync: false                  # 예: ActionGuardTravel/1.0 (본인이메일@example.com)
+      - key: CORS_ORIGINS
+        sync: false                  # 프론트 주소. 예: https://내프로젝트.vercel.app (끝에 / 없이)
+      - key: PUSH_MODE
+        value: disabled
